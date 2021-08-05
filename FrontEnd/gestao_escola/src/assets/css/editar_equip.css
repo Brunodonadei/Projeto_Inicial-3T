@@ -1,0 +1,153 @@
+* {
+    margin: auto;
+  }
+  
+  @font-face {
+    font-family: Bebas;
+    src: url(./assets/fonts/BebasNeue.otf);
+  }
+  
+  .header-box{
+    width: 100%;
+    height: 160px;
+    background-color: #f27b54;
+  }
+  
+  .school{
+    width: 152px;
+    height: 135px;
+    margin-top: 10px;
+  }
+  
+  .logo-container{
+    /* background-color: aquamarine; */
+    width: 80%;
+    display: flex;
+  }
+  
+  .titulo-container{
+    /* background-color: lightpink; */
+    width: 30%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 6px;
+  }
+  
+  .titulo1,.titulo2{
+    font-family: Bebas;
+    font-size: 48px;
+    color: black;
+    padding-right: 100px;
+  }
+  
+  .titulo1{
+    margin-top: 30px;
+  }
+  
+  .titulo2{
+    margin-bottom: 10px;
+  }
+  
+  .header-menu{
+    /* background-color: lightblue; */
+    width: 80%;
+    height: 100%;
+    display: flex;
+    margin-right: 40px;
+  }
+  
+  .header-item{
+    font-family: Bebas;
+    font-size: 36px;
+    color: white;
+  }
+  
+  /* FIM HEADER */
+  
+  
+  
+  /* INÍCIO MAIN*/   
+  
+  .flex-equip{
+    display: flex;
+  }
+  
+  .title-equip{
+    font-family: Bebas;
+    font-size: 80px;
+    color:#f27b54;
+    margin-top: 10px;  
+  }
+  
+  .cards-flex{
+    display: flex;
+    margin-top: 5px;
+    margin-bottom: 15px;
+  }
+  
+  .editar-equip{
+    background-color: rgba(196, 196, 196, 0.26);
+    width: 330px;
+    height: 340px;
+    display: flex;
+    flex-direction: column;
+    box-shadow:  2px 2px rgba(196, 196, 196, 0.8);
+  }
+  
+  .img-equip{
+    /* background-color: lightpink; */
+    width: 155px;
+    height: 170;
+  }
+  
+  .editar-equip-titulo{
+    /* background-color: lightseagreen; */
+    font-family: Bebas;
+    font-size: 36px;
+    color: black;
+  }
+  
+  .opcoes-editar{
+    font-family: Bebas;
+    font-size: 24px;
+    color: #04395e;
+  }
+  
+  .ver-mais{
+    font-family: Bebas;
+    font-size: 24px;
+    color: #04395e;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  
+  /* FIM MAIN */
+  
+  
+  .footer-box{
+    background-color: #f27b54;
+    width: 100%;
+    height: 130px;
+  }
+  
+  .footer-content{
+    /* background-color: lightskyblue; */
+    width: 90%;
+    height: 100%;
+    display: flex;
+  }
+  
+  .footer-item,.footer-itemX{
+    font-family: Bebas;
+    font-size: 36px;
+    color: white;
+  }
+  
+  .footer-itemX{
+    padding-right: 60px;
+  }
+  
+  
+  
