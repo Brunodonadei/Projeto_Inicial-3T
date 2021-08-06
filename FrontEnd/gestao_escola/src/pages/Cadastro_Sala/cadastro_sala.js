@@ -6,6 +6,14 @@ import school from '../../assets/img/school.png'
 
 
 class Cadastro_Sala extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            nomeSala : '',
+            andar : 0,
+            metragem : 0
+        }
+    }
 
     render() {
 

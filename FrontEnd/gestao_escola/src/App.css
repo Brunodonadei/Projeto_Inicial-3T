@@ -2,11 +2,6 @@
   margin: auto;
 }
 
-@font-face {
-  font-family: Bebas;
-  src: url(./assets/fonts/BebasNeue.otf);
-}
-
 .header-box{
   width: 100%;
   height: 160px;
@@ -144,6 +139,7 @@ main{
   font-family: Bebas;
   font-size: 40px;
   color:white;
+  background-color:#f27b54;
 }
 
 /* .cadastro{

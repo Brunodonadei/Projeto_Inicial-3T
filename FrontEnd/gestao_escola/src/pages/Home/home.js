@@ -1,4 +1,5 @@
 import { React, Component } from 'react'
+import { Link } from 'react-router-dom'
 
 import '../../assets/css/home.css'
 
@@ -56,13 +57,17 @@ class Home extends Component {
                     <div className="cards-flex">
 
                         <div className="cadastro-sala">
-                            <img className="img-sala" src={sala} alt="ícone de uma sala" />
-                            <p className="cadastro-sala-titulo">CADASTRE UMA SALA</p>
+                            <Link to="/cadS">
+                                <img className="img-sala" src={sala} alt="ícone de uma sala" />
+                                <p className="cadastro-sala-titulo">CADASTRE UMA SALA</p>
+                            </Link>
                         </div>
 
                         <div className="cadastro-equip">
-                            <img className="img-equip" src={pc} alt="ícone de um computador" />
-                            <p className="cadastro-equip-titulo">CADASTRE UM EQUIPAMENTO</p>
+                            <Link to="/cadE">
+                                <img className="img-equip" src={pc} alt="ícone de um computador" />
+                                <p className="cadastro-equip-titulo">CADASTRE UM EQUIPAMENTO</p>
+                            </Link>
                         </div>
 
                     </div>

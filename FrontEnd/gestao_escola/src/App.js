@@ -1,4 +1,7 @@
 import { React, Component } from 'react'
+import { parseJwt } from './services/auth'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 import './App.css'
 
@@ -6,6 +9,44 @@ import school from './assets/img/school.png'
 
 
 class Login extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      email : '',
+      senha : '',
+      erroMensagem : ''      
+    }
+  }
+
+  fazerLogin = (event) => {
+    event.preventDefault();
+
+    axios.post('http://localhost:5000/api/login', {
+      email : this.state.email,
+      senha : this.state.senha
+    })
+
+      .then(resposta => {
+        if (resposta.status === 200) {
+          localStorage.setItem('projeto-inicial', resposta.data.token)
+          console.log(resposta.data.token)
+  
+          this.setState({ email: '', senha: '' })          
+        }
+
+        if (parseJwt().jti !== null) {
+          this.props.history.push('/home')
+        }
+      })
+
+      .catch(() => {
+        this.setState({ erroMensagem: "E-mail ou senha inválidos! Tente novamente." })
+    })
+  }
+
+  atualizaState = (campo) => {
+    this.setState({ [campo.target.name] : campo.target.value })
+  }
 
   render() {
 
@@ -51,24 +92,28 @@ class Login extends Component {
           <p className="logo-text1">GESTÃO</p>
           <p className="logo-text2">ESCOLA</p>
 
+        <form onSubmit={this.fazerLogin} className="login-box">
+
           <div className="login-flex">
             <p className="login-titulo">LOGIN</p>
           </div>
 
           <div className="email-flex">
-            <p className="email-titulo">Digite seu Email</p>
+            <input className="email-titulo" type="text" placeholder="email" name="email" value={this.state.email} onChange={this.atualizaState} />
           </div>
           <div className="line"></div>
 
           <div className="senha-flex">
-            <p className="senha-titulo">Digite sua Senha</p>
+          <input className="senha-titulo" type="password" placeholder="senha" name="senha" value={this.state.senha} onChange={this.atualizaState} />
           </div>
           <div className="line"></div>
 
 
           <div className="botao-entrar-box">
-            <p className="botao-entrar-titulo">ENTRAR</p>
+            <button className="botao-entrar-titulo" type="submit">Entrar</button>
           </div>
+
+        </form>
 
           {/* <div className="cadastro">
             <p className="cadastre-se1">Não Possui uma conta?</p>

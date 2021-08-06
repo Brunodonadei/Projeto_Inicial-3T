@@ -2,7 +2,7 @@
     margin: auto;
   }
   
-  @font-face {
+  /* @font-face {
     font-family: Bebas;
     src: url(./assets/fonts/BebasNeue.otf);
   }
@@ -10,7 +10,7 @@
   @font-face {
     font-family: Abhaya;
     src: url(./assets/fonts/AbhayaLibre-SemiBold.ttf);
-  }
+  } */
   
   .header-box{
     width: 100%;
