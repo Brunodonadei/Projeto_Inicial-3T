@@ -64,7 +64,7 @@
   }
   
   /* FIM HEADER */
-  
+
   
   
   /* INÍCIO MAIN-LOGIN */   
@@ -80,10 +80,17 @@
     margin-top: 10px;  
   }
   
+  .cards-box{
+    width: 500px;
+    padding-top: 10px;
+  }
+
   .cards-flex{
     display: flex;
+    flex-wrap: wrap;
     margin-top: 5px;
     margin-bottom: 15px;
+    padding-top: 10px;
   }
   
   .editar-sala{
@@ -148,5 +155,45 @@
   .footer-itemX{
     padding-right: 60px;
   }
+
+  .pop-up{
+    display: none;
+    background-color: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: ease-in-out 300ms;
+    border: 1px solid black;
+    border-radius: 10xp;
+    z-index: 10;
+    width: 500px;
+    max-width: 80%;
+  }
   
-  
+  .modal-header{
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+    justify-items: end;
+  }
+
+  #overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .5);
+    pointer-events: none
+  }
+
+  /* #overlay.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+   */

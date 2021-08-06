@@ -8,7 +8,9 @@ import './index.css';
 
 import Cadastro_Equip from './pages/Cadastro_Equip/cadastro_equip'
 import Cadastro_Sala from './pages/Cadastro_Sala/cadastro_sala'
+import Editar_Equip from './pages/Editar_Equip/editar_equip';
 import Home from './pages/Home/home';
+import Editar_Sala from './pages/Editar_Sala/editar_sala'
 import App from './App';
 
 const PermissaoUsuario = ({ component : Component }) => (
@@ -28,7 +30,9 @@ const routing = (
         <Route exact path="/" component={App}/>
         <PermissaoUsuario path="/home" component={Home}/>
         <PermissaoUsuario path="/cadE" component={Cadastro_Equip}/>
-        <PermissaoUsuario path="/cadS" component={Cadastro_Sala}/>
+        <PermissaoUsuario path="/cadE" component={Cadastro_Equip}/>
+        <PermissaoUsuario path="/ediE" component={Editar_Equip}/>
+        <PermissaoUsuario path="/ediS" component={Editar_Sala}/>
       </Switch>
     </div>
   </Router>

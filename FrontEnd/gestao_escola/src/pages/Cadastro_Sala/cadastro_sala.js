@@ -1,4 +1,6 @@
 import { React, Component } from 'react'
+import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 import '../../assets/css/cadastro_sala.css'
 
@@ -11,8 +13,40 @@ class Cadastro_Sala extends Component {
         this.state = {
             nomeSala : '',
             andar : 0,
-            metragem : 0
+            metragem : 0,
+            mensagemSucesso : ''
         }
+    }
+
+    cadastrarSala = (event) => {
+        event.preventDefault()
+
+        let sala = {
+            nomeSala : this.state.nomeSala,
+            andarSala : this.state.andar,
+            metragemSala : this.state.metragem
+        }
+        
+        axios.post('http://localhost:5000/api/sala', sala, {
+            headers : {
+                'Authorization' : 'Bearer ' + localStorage.getItem('projeto-inicial')
+            }
+        }) 
+
+        .then(resposta => {
+            if (resposta.status === 201) {
+                this.setState({ mensagemSucesso : 'sala cadastrada com sucesso', nomeSala : '', andar : 0, metragem : 0,  })
+
+            }
+        })
+
+        .catch(erro =>{
+            console.log(erro)
+        })
+    }
+
+    atualizaState = (campo) => {
+        this.setState({ [campo.target.name] : campo.target.value })
     }
 
     render() {
@@ -39,7 +73,7 @@ class Cadastro_Sala extends Component {
                             <div className="header-menu">
 
                                 <p className="header-item">SOBRE</p>
-                                <p className="header-item">SALAS</p>
+                                <Link to="/ediS">Salas</Link>
                                 <p className="header-item">EQUIPAMENTOS</p>
                                 <p className="header-item">CADASTRE-SE</p>
                                 <p className="header-item">SAIR</p>
@@ -59,26 +93,56 @@ class Cadastro_Sala extends Component {
                         <p className="sala-titulo">CADASTRO DE SALA</p>
                     </div>
 
+                    <form onSubmit={this.cadastrarSala}>
+
                     <div className="nome-flex">
-                        <p className="nome-titulo">Nome</p>
+                        <input 
+                        className="nome-titulo"
+                        type="text"
+                        name="nomeSala"
+                        value={this.state.nomeSala}
+                        onChange={this.atualizaState}
+                        placeholder="Nome da sala"
+                        />
                     </div>
                     <div className="line"></div>
 
                     <div className="andar-flex">
-                        <p className="andar-titulo">Andar</p>
+                    <input 
+                        className="andar-titulo"
+                        type="number"
+                        name="andar"
+                        value={this.state.andar}
+                        onChange={this.atualizaState}
+                        placeholder="Andar da sala"
+                        />
                     </div>
                     <div className="line"></div>
 
                     <div className="tamanho-flex">
-                        <p className="tamanho-titulo">Tamanho (m²)</p>
+                    <input 
+                        className="tamanho-titulo"
+                        type="number"
+                        name="metragem"
+                        value={this.state.metragem}
+                        onChange={this.atualizaState}
+                        placeholder="Metragem"
+                        />
                     </div>
                     <div className="line"></div>
 
 
                     <div className="botao-cadastrar-box">
-                        <p className="botao-cadastrar-titulo">CADASTRAR SALA</p>
+                        <button 
+                        className="botao-cadastrar-titulo"
+                        type="submit"
+                        >CADASTRAR SALA</button>
+                    </div>
+                    <div className="texto">
+                        <p style={{ color : 'blue' }}>{this.state.mensagemSucesso}</p>
                     </div>
 
+                    </form>
 
                 </main>
 

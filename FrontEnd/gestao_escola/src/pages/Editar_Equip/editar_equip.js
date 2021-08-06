@@ -1,4 +1,5 @@
 import { React, Component } from 'react'
+import axios from 'axios'
 
 import '../../assets/css/editar_equip.css'
 
@@ -7,6 +8,33 @@ import pc from '../../assets/img/computer.png'
 
 
 class Editar_Equip extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            listaEquipamento : []
+        }
+    }
+
+    buscarEquipamentos = () => {
+        axios('http://localhost:5000/api/equipamento', {
+            headers : {
+                'Authorization' : 'Bearer ' + localStorage.getItem('projeto-inicial')
+            }
+        })
+
+        .then(resposta => {
+            if (resposta.status === 200) {
+                this.setState({ listaEquipamento : resposta.data })
+                console.log(this.state.listaEquipamento)
+            }
+        })
+
+        .catch(erro => console.log(erro))
+    }
+
+    componentDidMount = () =>{
+        this.buscarEquipamentos()
+    }
 
     render() {
 
@@ -46,9 +74,46 @@ class Editar_Equip extends Component {
                 </header>
 
 
-                <main>
+                <section>
+                    <div>
+                        <table style={{borderCollapse : 'separate', borderSpacing : 30, align : 'center'}}>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Marca</th>
+                                    <th>Tipo</th>
+                                    <th>Série</th>
+                                    <th>Patrimonio</th>
+                                    <th>Descrição</th>
+                                    <th>Situação</th>
+                                </tr>
 
-                    <div className="flex-equip">
+                            </thead>
+
+                            <tbody>
+
+                                {
+                                    this.state.listaEquipamento.map(evento => {
+                                        return(
+                                            <tr key={evento.idEquipamento}>
+                                                <td>{evento.idEquipamento}</td>
+                                                <td>{evento.marcaEquipamento}</td>
+                                                <td>{evento.tipoEquipamento}</td>
+                                                <td>{evento.numeroSerie}</td>
+                                                <td>{evento.numeroPatrimonio}</td>
+                                                <td>{evento.descricaoEquipamento}</td>
+                                                <td>{evento.statusEquipamento ? 'Ativo' : 'Inativo'}</td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </section>
+
+                    {/* <div className="flex-equip">
                         <p className="title-equip">EQUIPAMENTOS</p>
                     </div>
 
@@ -87,9 +152,9 @@ class Editar_Equip extends Component {
 
                     </div>
 
-                    <p className="ver-mais">VER MAIS</p>
+                    <p className="ver-mais">VER MAIS</p> */}
 
-                </main>
+                
 
 
                 <footer>
