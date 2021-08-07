@@ -11,8 +11,20 @@ class Editar_Equip extends Component {
     constructor(props){
         super(props)
         this.state = {
-            listaEquipamento : []
+            listaEquipamento : [],
+            marcaEquipamento : '',
+            tipoEquipamento : '',
+            numeroSerie : 0,
+            numeroPatrimonio : 0,
+            descricaoEquipamento : '',
+            statusEquipamento : 0,
+            idEquipamentoEscolhido : 0,
         }
+    }
+
+    deslogar = () => {
+        localStorage.removeItem('projeto-inicial')
+        this.props.history.push('/')
     }
 
     buscarEquipamentos = () => {
@@ -30,6 +42,88 @@ class Editar_Equip extends Component {
         })
 
         .catch(erro => console.log(erro))
+    }
+
+    abrirPopUp = (equipamento) => {
+        document.getElementById('pop-up').style.display = 'block'
+        // document.getElementById('overlay').style.display = 'block'
+
+        this.setState({
+            idEquipamentoEscolhido : equipamento.idEquipamento,
+            marcaEquipamento : equipamento.marcaEquipamento,
+            tipoEquipamento : equipamento.tipoEquipamento,
+            numeroSerie : equipamento.numeroSerie,
+            numeroPatrimonio : equipamento.numeroPatrimonio,
+            descricaoEquipamento : equipamento.descricaoEquipamento,
+            statusEquipamento : parseInt(equipamento.statusEquipamento)
+        }, () => {
+            console.log('a sala ' + this.state.idEquipamentoEscolhido + 'foi selecionada' )
+        })
+    }
+
+    editarEquipamento = (event) => {
+        event.preventDefault()
+
+        let equipamento = {
+
+            marcaEquipamento : this.state.marcaEquipamento,
+            tipoEquipamento : this.state.tipoEquipamento,
+            numeroSerie : this.state.numeroSerie,
+            numeroPatrimonio : this.state.numeroPatrimonio,
+            descricaoEquipamento : this.state.descricaoEquipamento,
+            statusEquipamento :  this.state.statusEquipamento
+        }
+
+        if (this.state.idEquipamentoEscolhido !== 0) {
+            
+            axios.put('http://localhost:5000/api/equipamento/' + this.state.idEquipamentoEscolhido, equipamento, {
+                headers : {
+                    'Authorization' : 'Bearer ' + localStorage.getItem('projeto-inicial')
+                }
+            })
+
+            .then(resposta => {
+                if (resposta.status === 204) {
+                    console.log('sala ' + this.state.idEquipamentoEscolhido + ' atualizada')
+                }
+            })
+
+            .catch(erro =>{
+                console.log(erro)
+            })
+
+            .then(this.buscarEquipamentos)
+        }
+    }
+
+    excluirEquipamento = (equipamento) => {
+
+        this.setState({
+            idEquipamentoEscolhido : equipamento.idEquipamento
+        })
+
+        axios.delete('http://localhost:5000/api/equipamento/' + equipamento.idEquipamento, {
+            headers : {
+                'Authorization' : 'Bearer ' + localStorage.getItem('projeto-inicial')
+            }
+        })
+
+        .then(resposta => {
+            if (resposta.status === 204) {
+                console.log('o equipamento ' + this.state.idEquipamentoEscolhido + ' foi excluído')
+            }
+        })
+
+        .catch(erro => {
+            console.log(erro)
+        })
+
+        .then(this.buscarEquipamentos)
+
+    }
+
+    atualizaState = (campo) => {
+        this.setState({ [campo.target.name] : campo.target.value })
     }
 
     componentDidMount = () =>{
@@ -63,7 +157,7 @@ class Editar_Equip extends Component {
                                 <p className="header-item">SALAS</p>
                                 <p className="header-item">EQUIPAMENTOS</p>
                                 <p className="header-item">CADASTRE-SE</p>
-                                <p className="header-item">SAIR</p>
+                                <p className="header-item" onClick={() => this.deslogar()}>SAIR</p>
 
                             </div>
 
@@ -86,6 +180,7 @@ class Editar_Equip extends Component {
                                     <th>Patrimonio</th>
                                     <th>Descrição</th>
                                     <th>Situação</th>
+                            
                                 </tr>
 
                             </thead>
@@ -103,6 +198,8 @@ class Editar_Equip extends Component {
                                                 <td>{evento.numeroPatrimonio}</td>
                                                 <td>{evento.descricaoEquipamento}</td>
                                                 <td>{evento.statusEquipamento ? 'Ativo' : 'Inativo'}</td>
+                                                <button onClick={() => this.abrirPopUp(evento)}>Editar</button>
+                                                <button onClick={() => this.excluirEquipamento(evento)}>Excluir</button>
                                             </tr>
                                         )
                                     })
@@ -110,7 +207,71 @@ class Editar_Equip extends Component {
                             </tbody>
                         </table>
                     </div>
+                    <div id="pop-up" className="pop-up">
+                        <button className="modal-header">&times;</button>
+                        {
+                            <form onSubmit={this.editarEquipamento}>
+                                <input 
+                                    className="marca-titulo"
+                                    id="marca-titulo"
+                                    type="text"
+                                    name="marcaEquipamento"
+                                    value={this.state.marcaEquipamento}
+                                    onChange={this.atualizaState}
+                                    placeholder="Marca Equipamento"
+                                />
+                                <input 
+                                    className="tipo-titulo"
+                                    id="tipo-titulo"
+                                    type="text"
+                                    name="tipoEquipamento"
+                                    value={this.state.tipoEquipamento}
+                                    onChange={this.atualizaState}
+                                    placeholder="Tipo Equipamento"
+                                />
+                                <input 
+                                    className="numero-titulo"
+                                    id="numero-titulo"
+                                    type="number"
+                                    name="numeroSerie"
+                                    value={this.state.numeroSerie}
+                                    onChange={this.atualizaState}
+                                    placeholder="Número Série"
+                                />
+                                <input 
+                                    className="numero-titulo"
+                                    id="numero-titulo"
+                                    type="number"
+                                    name="numeroPatrimonio"
+                                    value={this.state.numeroPatrimonio}
+                                    onChange={this.atualizaState}
+                                    placeholder="Número Patrimônio"
+                                />
+                                <input 
+                                    className="descricao-titulo"
+                                    id="descricao-titulo"
+                                    type="text"
+                                    name="descricaoEquipamento"
+                                    value={this.state.descricaoEquipamento}
+                                    onChange={this.atualizaState}
+                                    placeholder="Descrição"
+                                />
+                                <select
+                                    name="statusEquipamento"
+                                    value={this.state.statusEquipamento}
+                                    onChange={this.atualizaState}
+                                >
+                                    <option value="1">Ativo</option>
+                                    <option value="0">Inativo</option>
 
+                                </select>
+
+                                <button type="submit">Alterar</button>
+
+                            </form>
+                        }
+                    </div>
+                    
                 </section>
 
                     {/* <div className="flex-equip">

@@ -14,13 +14,13 @@ class Editar_Sala extends Component {
             listaSalas : [],
             idSalaEscolhida : 0,
             nomeSala : '',
-            andarSala : '',
-            metragemSala : ''
+            andarSala : 0,
+            metragemSala : 0
         }
     }
 
     buscarSalas = () => {
-        axios('http://localhost:5000/api/sala', this.state.idSalaEscolhida, {
+        axios('http://localhost:5000/api/sala',{
             headers : {
                 'Authorization' : 'Bearer ' + localStorage.getItem('projeto-inicial')
             }
@@ -36,27 +36,100 @@ class Editar_Sala extends Component {
         .catch(erro => console.log(erro))
     }
 
-    // buscarSalaPorId = (sala) => {
-    //     document.getElementById('pop-up').style.display = 'block'
-    //     document.getElementById('overlay').style.display = 'block'
+    buscarSalaPorId = (sala) => {
+        document.getElementById('pop-up').style.display = 'block'
+        document.getElementById('overlay').style.display = 'block'
 
-    //     this.setState({
-    //         idSalaEscolhida : sala.idSala,
-    //         nomeSala : sala.nomeSala,
-    //         andarSala : sala.andarSala,
-    //         metragem : sala.metragemSala
-    //     }, () => {
-    //         console.log('seu id é: ' + this.state.idSalaEscolhida )
-    //     })
+        this.setState({
+            idSalaEscolhida : sala.idSala,
+            nomeSala : sala.nomeSala,
+            andarSala : sala.andarSala,
+            metragemSala : sala.metragemSala
+        }, () => {
+            console.log('a sala ' + this.state.idSalaEscolhida + 'foi selecionada' )
+        })
+    }
 
-       
-    // }
+    verModal = (salas) => {
+        document.getElementById('modal').style.display = 'block'
+
+        this.setState({
+            idSalaEscolhida : salas.idSala,
+            nomeSala : salas.nomeSala,
+            andarSala : salas.andarSala,
+            metragemSala : salas.metragemSala
+        }, () => {
+            console.log('a sala ' + this.state.idSalaEscolhida + 'foi selecionada' )
+        })
+    }
 
 
-    // fecharPopUp = () => {
-    //     document.getElementById('pop-up').style.display = 'none'
-    //     document.getElementById('overlay').style.display = 'none'
-    // }
+    fecharPopUp = () => {
+        document.getElementById('pop-up').style.display = 'none'
+        document.getElementById('overlay').style.display = 'none'
+        document.getElementById('modal').style.display = 'none'
+    }
+
+    editarSala = (event) => {
+        event.preventDefault()
+
+        let sala = {
+            nomeSala : this.state.nomeSala,
+            andarSala : this.state.andarSala,
+            metragemSala : this.state.metragemSala
+        }
+
+        if (this.state.idSalaEscolhida !== 0) {
+            
+            axios.put('http://localhost:5000/api/sala/' + this.state.idSalaEscolhida, sala, {
+                headers : {
+                    'Authorization' : 'Bearer ' + localStorage.getItem('projeto-inicial')
+                }
+            })
+
+            .then(resposta => {
+                if (resposta.status === 204) {
+                    console.log('sala ' + this.state.idSalaEscolhida + ' atualizada')
+                }
+            })
+
+            .catch(erro =>{
+                console.log(erro)
+            })
+
+            .then(this.buscarSalas)
+        }
+    }
+
+    excluirSala = (salas) => {
+
+        this.setState({
+            idSalaEscolhida : salas.idSala
+        })
+
+        axios.delete('http://localhost:5000/api/sala/' + salas.idSala, {
+            headers : {
+                'Authorization' : 'Bearer ' + localStorage.getItem('projeto-inicial')
+            }
+        })
+
+        .then(resposta => {
+            if (resposta.status === 204) {
+                console.log('a sala ' + this.state.idSalaEscolhida + ' foi excluída')
+            }
+        })
+
+        .catch(erro => {
+            console.log(erro)
+        })
+
+        .then(this.buscarSalas)
+
+    }
+
+    atualizaState = (campo) => {
+        this.setState({ [campo.target.name] : campo.target.value })
+    }
 
     componentDidMount(){
         this.buscarSalas()
@@ -118,27 +191,60 @@ class Editar_Sala extends Component {
                                     <td className="editar-sala-titulo">{evento.andarSala}° Andar</td>
                                     <td className="editar-sala-titulo">{evento.metragemSala} m²</td>
 
-                                    <button className="opcoes-editar">VER</button>
-                                    <button className="opcoes-editar">EDITAR</button>
+                                    <button className="opcoes-editar" onClick={() => this.verModal(evento)}>Ver</button>
+                                    <button className="opcoes-editar" onClick={() => this.buscarSalaPorId(evento)}>Editar</button>
+                                    <button className="opcoes-editar" onClick={() => this.excluirSala(evento)}>Excluir</button>
 
                                     </tr>
                                 )
                             })
                         }
                     </tbody>
+
+                    <div id="modal" className="pop-up">
+                        <button className="modal-header" onClick={this.fecharPopUp}>&times;</button>
+                        <div>
+                            <p className="editar-sala-titulo">{this.state.nomeSala}</p>
+                            <p className="editar-sala-titulo">{this.state.andarSala}° Andar</p>
+                            <p className="editar-sala-titulo">{this.state.metragemSala}m²</p>
+                        </div>
+                    </div>
  
                     <div id="pop-up" className="pop-up">
                         <button className="modal-header" onClick={this.fecharPopUp}>&times;</button>
                         {
-                            this.state.listaSalas.map(evento => {
-                                return(
-                                    <tr key={evento.idSala}>
-                                        <td>{evento.nomeSala}</td>
-                                        <td>{evento.andarSala}</td>
-                                        <td>{evento.metragemSala}</td>
-                                    </tr>
-                                )
-                            })
+                            <form onSubmit={this.editarSala}>
+                                <input 
+                                    className="nome-titulo"
+                                    id="nome-titulo"
+                                    type="text"
+                                    name="nomeSala"
+                                    value={this.state.nomeSala}
+                                    onChange={this.atualizaState}
+                                    placeholder="Nome da sala"
+                                />
+                                <input 
+                                    className="andar-titulo"
+                                    id="andar-titulo"
+                                    type="number"
+                                    name="andarSala"
+                                    value={this.state.andarSala}
+                                    onChange={this.atualizaState}
+                                    placeholder="Andar da Sala"
+                                />
+                                <input 
+                                    className="metragem-titulo"
+                                    id="metragem-titulo"
+                                    type="number"
+                                    name="metragemSala"
+                                    value={this.state.metragemSala}
+                                    onChange={this.atualizaState}
+                                    placeholder="Metragem da sala"
+                                />
+
+                                <button type="submit" onClick={this.fecharPopUp}>Alterar</button>
+
+                            </form>
                         }
                     </div>
                     <div className="active" id="overlay"></div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
-import { usuarioAutenticado } from './services/auth';
+import { parseJwt, usuarioAutenticado } from './services/auth';
 
 import reportWebVitals from './reportWebVitals';
 import './index.css';
@@ -16,9 +16,9 @@ import App from './App';
 const PermissaoUsuario = ({ component : Component }) => (
   <Route 
     render = { props => 
-      usuarioAutenticado() !== null ?
+      usuarioAutenticado() && parseJwt().jti !== null ?
       <Component {...props} /> :
-      <Redirect to = "/" />
+      <Redirect to = "/" /> 
     }
   />
 )
@@ -30,7 +30,7 @@ const routing = (
         <Route exact path="/" component={App}/>
         <PermissaoUsuario path="/home" component={Home}/>
         <PermissaoUsuario path="/cadE" component={Cadastro_Equip}/>
-        <PermissaoUsuario path="/cadE" component={Cadastro_Equip}/>
+        <PermissaoUsuario path="/cadS" component={Cadastro_Sala}/>
         <PermissaoUsuario path="/ediE" component={Editar_Equip}/>
         <PermissaoUsuario path="/ediS" component={Editar_Sala}/>
       </Switch>

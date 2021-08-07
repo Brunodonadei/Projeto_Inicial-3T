@@ -19,7 +19,7 @@ class Cadastro_Equip extends Component {
             numeroSerie : 0,
             numeroPatrimonio : 0,
             descricao : '',
-            // situacaoEquipamento : false,
+            situacaoEquipamento : 0,
             mensagem : ''
         }
     }
@@ -37,6 +37,7 @@ class Cadastro_Equip extends Component {
             numeroSerie : this.state.numeroSerie,
             numeroPatrimonio : this.state.numeroPatrimonio,
             descricaoEquipamento : this.state.descricao,
+            statusEquipamento : parseInt( this.state.situacaoEquipamento )
         }
 
         axios.post('http://localhost:5000/api/equipamento', equipamento, {
@@ -165,6 +166,15 @@ class Cadastro_Equip extends Component {
                         placeholder="Descrição do equipamento"
                         />
                     </div>
+                    <select
+                        name="situacaoEquipamento"
+                        value={this.state.situacaoEquipamento}
+                        onChange={this.atualizaState}
+                        >
+                        <option value="1">Ativo</option>
+                        <option value="0">Inativo</option>
+
+                    </select>
                     <div className="line"></div>
 
                     <div className="descricao-flex">

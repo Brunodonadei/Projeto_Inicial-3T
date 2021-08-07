@@ -23,7 +23,6 @@ namespace projeto_inicial.Controllers
         }
 
         [HttpGet]
-
         public IActionResult listarSala()
         {
             try
