@@ -55,7 +55,7 @@ class Editar_Equip extends Component {
             numeroSerie : equipamento.numeroSerie,
             numeroPatrimonio : equipamento.numeroPatrimonio,
             descricaoEquipamento : equipamento.descricaoEquipamento,
-            statusEquipamento : parseInt(equipamento.statusEquipamento)
+            
         }, () => {
             console.log('a sala ' + this.state.idEquipamentoEscolhido + 'foi selecionada' )
         })
@@ -71,7 +71,7 @@ class Editar_Equip extends Component {
             numeroSerie : this.state.numeroSerie,
             numeroPatrimonio : this.state.numeroPatrimonio,
             descricaoEquipamento : this.state.descricaoEquipamento,
-            statusEquipamento :  this.state.statusEquipamento
+            statusEquipamento :  parseInt(this.state.statusEquipamento)
         }
 
         if (this.state.idEquipamentoEscolhido !== 0) {
@@ -157,7 +157,7 @@ class Editar_Equip extends Component {
                                 <p className="header-item">SALAS</p>
                                 <p className="header-item">EQUIPAMENTOS</p>
                                 <p className="header-item">CADASTRE-SE</p>
-                                <p className="header-item" onClick={() => this.deslogar()}>SAIR</p>
+                                <button className="header-item" onClick={() => this.deslogar()}>Sair</button>
 
                             </div>
 

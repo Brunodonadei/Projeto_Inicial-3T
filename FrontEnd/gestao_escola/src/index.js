@@ -17,8 +17,8 @@ const PermissaoUsuario = ({ component : Component }) => (
   <Route 
     render = { props => 
       usuarioAutenticado() && parseJwt().jti !== null ?
-      <Component {...props} /> :
-      <Redirect to = "/" /> 
+      <Redirect to = "/" /> :
+      <Component {...props} /> 
     }
   />
 )

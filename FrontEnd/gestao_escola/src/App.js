@@ -1,5 +1,5 @@
 import { React, Component } from 'react'
-import { parseJwt } from './services/auth'
+import { parseJwt, usuarioAutenticado } from './services/auth'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
@@ -34,7 +34,7 @@ class Login extends Component {
           this.setState({ email: '', senha: '' })          
         }
 
-        if (parseJwt().jti !== null) {
+        if (usuarioAutenticado !== null) {
           this.props.history.push('/home')
         }
       })
@@ -42,6 +42,10 @@ class Login extends Component {
       .catch(() => {
         this.setState({ erroMensagem: "E-mail ou senha inválidos! Tente novamente." })
     })
+  }
+
+  popUp = () => {
+    document.getElementById('slider').style.display = 'block'
   }
 
   atualizaState = (campo) => {
@@ -64,17 +68,23 @@ class Login extends Component {
 
               <div className="titulo-container">
 
-                <p className="titulo1">GESTÃO</p>
-                <p className="titulo2">ESCOLA</p>
+                <p className="titulo1">Gestão</p>
+                <p className="titulo2">Escola</p>
 
               </div>
 
               <div className="header-menu">
 
                 <p className="header-item">SOBRE</p>
-                <p className="header-item">SALAS</p>
+                <Link to="/ediS" className="header-item">Salas</Link>
+                <Link to="/ediE" className="header-item">Equipamentos</Link>
+                <button onClick={() => this.popUp()}className="header-item">Cadastro</button>
                 <p className="header-item">EQUIPAMENTOS</p>
-                <p className="header-item">CADASTRE-SE</p>
+                <div id="slider">
+                  <h1>O que você deseja cadastrar?</h1>
+                  <Link to="/cadS">Sala</Link>
+                  <Link to="/cadE">Equipamento</Link>                  
+                </div>
                 <p className="header-item">SAIR</p>
 
               </div>
@@ -99,50 +109,21 @@ class Login extends Component {
           </div>
 
           <div className="email-flex">
-            <input className="email-titulo" type="text" placeholder="email" name="email" value={this.state.email} onChange={this.atualizaState} />
-          </div>
-          <div className="line"></div>
 
-          <div className="senha-flex">
-          <input className="senha-titulo" type="password" placeholder="senha" name="senha" value={this.state.senha} onChange={this.atualizaState} />
-          </div>
-          <div className="line"></div>
+            <input className="email-titulo" type="text" placeholder="Email" name="email" value={this.state.email} onChange={this.atualizaState} />
+        
+            <input className="email-titulo" type="password" placeholder="Senha" name="senha" value={this.state.senha} onChange={this.atualizaState} />
 
-
-          <div className="botao-entrar-box">
             <button className="botao-entrar-titulo" type="submit">Entrar</button>
           </div>
 
         </form>
 
-          {/* <div className="cadastro">
-            <p className="cadastre-se1">Não Possui uma conta?</p>
-            <p className="cadastre-se2">Cadastre-se</p>
-          </div> */}
-
         </main>
 
 
-        <footer>
-
-          <div className="footer-box">
-
-            <div className="footer-content">
-
-              <p className="footer-itemX">@2021 - Gestão Escola. Todos os direitos reservados.</p>
-              <p className="footer-item">CONTATO</p>
-              <p className="footer-item">LOCALIZAÇÃO</p>
-              <p className="footer-item">PRIVACIDADE</p>
-
-            </div>
-
-          </div>
-
-        </footer>
-
-
-
       </div>
+
 
     )
 

@@ -2,6 +2,48 @@
   margin: auto;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+
+body{
+  background-color: rgba(242, 123, 84, 0.3);
+}
+
+body, ul, li, p{
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+  font-family: 'Bebas Neue', cursive;
+}
+
+.header{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f27b54;
+}
+
+.menu{
+  display: flex;
+}
+
+.menu li{
+  margin-left: 10px;
+  display: block;
+  padding: 10px;
+  font-size: 36px;
+}
+
+h1{
+  text-align: center;
+  color: #f27b54;
+  font-family: 'Bebas Neue', cursive;
+  margin-top: 50px;
+  font-size: 80px;
+}
+
 .header-box{
   width: 100%;
   height: 160px;
@@ -12,6 +54,10 @@
   width: 152px;
   height: 135px;
   margin-top: 10px;
+}
+
+.gestao{
+  margin-right: 500px;
 }
 
 .logo-container{
@@ -30,19 +76,17 @@
 }
 
 .titulo1,.titulo2{
-  font-family: Bebas;
+  font-family: 'Bebas Neue', cursive;
   font-size: 48px;
   color: black;
   padding-right: 100px;
 }
 
 .titulo1{
-  margin-top: 30px;
+  line-height: 45px;
 }
 
-.titulo2{
-  margin-bottom: 10px;
-}
+
 
 .header-menu{
   /* background-color: lightblue; */
@@ -53,7 +97,7 @@
 }
 
 .header-item{
-  font-family: Bebas;
+  font-family: 'Bebas Neue', cursive;
   font-size: 36px;
   color: white;
 }
@@ -64,7 +108,6 @@
 /* INÍCIO MAIN-LOGIN */
 
 main{
-  background-color: rgba(242, 123, 84, 0.3);
   display: flex;
   flex-direction: column;
 }
@@ -75,7 +118,7 @@ main{
 }
 
 .logo-text1,.logo-text2{
-  font-family: Bebas;
+  font-family: 'Bebas Neue', cursive;
   font-size: 48px;
   color:black;
 }
@@ -90,7 +133,7 @@ main{
 }
 
 .login-titulo{
-  font-family: Bebas;
+  font-family: 'Bebas Neue', cursive;
   font-size: 80px;
   color:#f27b54;
   margin-top: 10px;  
@@ -98,13 +141,18 @@ main{
 
 .email-flex{
   display: flex;
-  margin-top: 10px;
+  margin-top: 20px;
+  flex-direction: column;
 }
 
 .email-titulo{
-  font-family: Bebas;
+  font-family: 'Bebas Neue', cursive;
   font-size: 36px;
   color: #999999;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #999999;
+  margin-bottom: 15px;
 }
 
 .senha-flex{
@@ -113,9 +161,12 @@ main{
 }
 
 .senha-titulo{
-  font-family: Bebas;
+  font-family: 'Bebas Neue', cursive;
   font-size: 36px;
   color: #999999;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #999999;
 }
 
 .line{
@@ -126,20 +177,24 @@ main{
 
 
 .botao-entrar-box{
-  width: 14%;
+  width: 100%;
   height: 50px;
   background-color:#f27b54;
   margin-top: 20px;
   margin-bottom: 55px;
-  border-radius: 5%;
+  border: none;
   display: flex;
 }
 
 .botao-entrar-titulo{
-  font-family: Bebas;
-  font-size: 40px;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 36px;
+  border: 1px solid black;
+  justify-items: center;
+  justify-content: center;
   color:white;
   background-color:#f27b54;
+  cursor: pointer;
 }
 
 /* .cadastro{
@@ -179,11 +234,26 @@ main{
 }
 
 .footer-item,.footer-itemX{
-  font-family: Bebas;
+  font-family: 'Bebas Neue', cursive;
   font-size: 36px;
   color: white;
 }
-
+/* 
 .footer-itemX{
   padding-right: 60px;
+} */
+
+#slider{
+    display: none;
+    background-color: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: ease-in-out 300ms;
+    border: 1px solid black;
+    border-radius: 10xp;
+    z-index: 10;
+    width: 500px;
+    max-width: 80%;
 }
