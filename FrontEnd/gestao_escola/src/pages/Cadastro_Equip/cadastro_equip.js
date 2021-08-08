@@ -4,62 +4,62 @@ import { Link } from 'react-router-dom'
 
 import '../../assets/css/cadastro_equip.css'
 
-import school from '../../assets/img/school.png'
+import school2 from '../../assets/img/school.png'
 import Editar_Equip from '../Editar_Equip/editar_equip'
 import Editar_Sala from '../Editar_Sala/editar_sala'
 
 
 class Cadastro_Equip extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
-            listaEquipamento : [],
-            marcaEquipamento : '',
-            tipoEquipamento : '',
-            numeroSerie : 0,
-            numeroPatrimonio : 0,
-            descricao : '',
-            situacaoEquipamento : 0,
-            mensagem : ''
+            listaEquipamento: [],
+            marcaEquipamento: '',
+            tipoEquipamento: '',
+            numeroSerie: 0,
+            numeroPatrimonio: 0,
+            descricao: '',
+            situacaoEquipamento: 0,
+            mensagem: ''
         }
     }
 
     limpaCampo = () => {
-        this.setState({marcaEquipamento : '', tipoEquipamento : '', numeroSerie : 0, numeroPatrimonio : 0, descricao : ''})
+        this.setState({ marcaEquipamento: '', tipoEquipamento: '', numeroSerie: 0, numeroPatrimonio: 0, descricao: '' })
     }
 
     cadastrarEquipamento = (event) => {
         event.preventDefault()
 
         let equipamento = {
-            marcaEquipamento : this.state.marcaEquipamento,
-            tipoEquipamento : this.state.tipoEquipamento,
-            numeroSerie : this.state.numeroSerie,
-            numeroPatrimonio : this.state.numeroPatrimonio,
-            descricaoEquipamento : this.state.descricao,
-            statusEquipamento : parseInt( this.state.situacaoEquipamento )
+            marcaEquipamento: this.state.marcaEquipamento,
+            tipoEquipamento: this.state.tipoEquipamento,
+            numeroSerie: this.state.numeroSerie,
+            numeroPatrimonio: this.state.numeroPatrimonio,
+            descricaoEquipamento: this.state.descricao,
+            statusEquipamento: parseInt(this.state.situacaoEquipamento)
         }
 
         axios.post('http://localhost:5000/api/equipamento', equipamento, {
-            headers : {
-                'Authorization' : 'Bearer ' + localStorage.getItem('projeto-inicial')
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('projeto-inicial')
             }
         })
 
-        .then(resposta => {
-            if (resposta.status === 201) {
-                this.setState({mensagem : 'equipamento cadastrado com sucesso'})
-                console.log('equipamento cadastrado')
-            }
-        })
+            .then(resposta => {
+                if (resposta.status === 201) {
+                    this.setState({ mensagem: 'equipamento cadastrado com sucesso' })
+                    console.log('equipamento cadastrado')
+                }
+            })
 
-        .catch(erro => {
-            console.log(erro)
-        })
+            .catch(erro => {
+                console.log(erro)
+            })
     }
 
     atualizaState = (campo) => {
-        this.setState({[campo.target.name] : campo.target.value})
+        this.setState({ [campo.target.name]: campo.target.value })
     }
 
     render() {
@@ -68,35 +68,20 @@ class Cadastro_Equip extends Component {
 
             <div>
 
-                <header>
-
-                    <div className="header-box">
-
-                        <div className="logo-container">
-
-                            <img className="school" src={school} alt="ícone de uma escola" />
-
-                            <div className="titulo-container">
-
-                                <p className="titulo1">GESTÃO</p>
-                                <p className="titulo2">ESCOLA</p>
-
-                            </div>
-
-                            <div className="header-menu">
-
-                                <p className="header-item">SOBRE</p>
-                                <p className="header-item">SALAS</p>
-                                <Link to="/ediE">Equipamentos</Link>
-                                <p className="header-item">CADASTRE-SE</p>
-                                <p className="header-item">SAIR</p>
-
-                            </div>
-
-                        </div>
-
+                <header className="header">
+                    <div className="gestao-alinhamento-img">
+                        <img className="school" src={school2} alt="ícone de uma escola" />
+                        <p>Gestão<br />Escola</p>
                     </div>
-
+                    <nav>
+                        <ul className="menu">
+                            <li><Link to="/ediS" className="link">Salas</Link></li>
+                            <li><Link to="/ediE" className="link">Equipamentos</Link></li>
+                            <li onClick={() => this.popUp()}>Cadastro</li>
+                            <li onClick={() => this.deslogar()}>Sair</li>
+                            <li></li>
+                        </ul>
+                    </nav>
                 </header>
 
 
@@ -108,78 +93,78 @@ class Cadastro_Equip extends Component {
 
                     <form onSubmit={this.cadastrarEquipamento}>
 
-                    <div className="marca-flex">
-                    <input 
-                        className="marca-titulo"
-                        type="text"
-                        name="marcaEquipamento"
-                        value={this.state.marcaEquipamento}
-                        onChange={this.atualizaState}
-                        placeholder="Marca do equipamento"
-                        />
-                    </div>
-                    <div className="line"></div>
+                        <div className="marca-flex">
+                            <input
+                                className="marca-titulo"
+                                type="text"
+                                name="marcaEquipamento"
+                                value={this.state.marcaEquipamento}
+                                onChange={this.atualizaState}
+                                placeholder="Marca do equipamento"
+                            />
+                        </div>
+                        <div className="line"></div>
 
-                    <div className="tipo-flex">
-                    <input 
-                        className="tipo-titulo"
-                        type="text"
-                        name="tipoEquipamento"
-                        value={this.state.tipoEquipamento}
-                        onChange={this.atualizaState}
-                        placeholder="Tipo de equipamento"
-                        />
-                    </div>
-                    <div className="line"></div>
+                        <div className="tipo-flex">
+                            <input
+                                className="tipo-titulo"
+                                type="text"
+                                name="tipoEquipamento"
+                                value={this.state.tipoEquipamento}
+                                onChange={this.atualizaState}
+                                placeholder="Tipo de equipamento"
+                            />
+                        </div>
+                        <div className="line"></div>
 
-                    <div className="serie-flex">
-                    <input 
-                        className="serie-titulo"
-                        type="number"
-                        name="numeroSerie"
-                        value={this.state.numeroSerie}
-                        onChange={this.atualizaState}
-                        placeholder="Número de série"
-                        />
-                    </div>
-                    <div className="line"></div>
+                        <div className="serie-flex">
+                            <input
+                                className="serie-titulo"
+                                type="number"
+                                name="numeroSerie"
+                                value={this.state.numeroSerie}
+                                onChange={this.atualizaState}
+                                placeholder="Número de série"
+                            />
+                        </div>
+                        <div className="line"></div>
 
-                    <div className="patrimonio-flex">
-                    <input 
-                        className="patrimonio-titulo"
-                        type="number"
-                        name="numeroPatrimonio"
-                        value={this.state.numeroPatrimonio}
-                        onChange={this.atualizaState}
-                        placeholder="Número de patrimônio"
-                        />
-                    </div>
-                    <div className="line"></div>
+                        <div className="patrimonio-flex">
+                            <input
+                                className="patrimonio-titulo"
+                                type="number"
+                                name="numeroPatrimonio"
+                                value={this.state.numeroPatrimonio}
+                                onChange={this.atualizaState}
+                                placeholder="Número de patrimônio"
+                            />
+                        </div>
+                        <div className="line"></div>
 
-                    <div className="descricao-flex">
-                    <input 
-                        className="descricao-titulo"
-                        type="text"
-                        name="descricao"
-                        value={this.state.descricao}
-                        onChange={this.atualizaState}
-                        placeholder="Descrição do equipamento"
-                        />
-                    </div>
-                    <select
-                        name="situacaoEquipamento"
-                        value={this.state.situacaoEquipamento}
-                        onChange={this.atualizaState}
+                        <div className="descricao-flex">
+                            <input
+                                className="descricao-titulo"
+                                type="text"
+                                name="descricao"
+                                value={this.state.descricao}
+                                onChange={this.atualizaState}
+                                placeholder="Descrição do equipamento"
+                            />
+                        </div>
+                        <select
+                            name="situacaoEquipamento"
+                            value={this.state.situacaoEquipamento}
+                            onChange={this.atualizaState}
                         >
-                        <option value="1">Ativo</option>
-                        <option value="0">Inativo</option>
+                            <option value="1">Ativo</option>
+                            <option value="0">Inativo</option>
 
-                    </select>
-                    <div className="line"></div>
+                        </select>
+                        <div className="line"></div>
 
-                    <div className="descricao-flex">
+                        <div className="descricao-flex">
 
-                    {/* <select 
+                            {/* <select 
                     className="descricao-titulo"
                     name="situacaoEquipamento"
                     value={this.state.situacaoEquipamento}
@@ -197,14 +182,14 @@ class Cadastro_Equip extends Component {
                             })
                         }
                     </select> */}
-                        
-                    </div>
-                    <div className="line"></div>
+
+                        </div>
+                        <div className="line"></div>
 
 
-                    <div className="botao-cadastrar-box">
-                        <button className="botao-cadastrar-titulo" type="submit">Cadastrar Equipamento</button>
-                    </div>
+                        <div className="botao-cadastrar-box">
+                            <button className="botao-cadastrar-titulo" type="submit">Cadastrar Equipamento</button>
+                        </div>
                     </form>
 
 

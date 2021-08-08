@@ -5,7 +5,8 @@ import axios from 'axios'
 
 import './App.css'
 
-import school from './assets/img/school.png'
+import school from './assets/img/school3.png'
+import school2 from './assets/img/school.png'
 
 
 class Login extends Component {
@@ -56,73 +57,42 @@ class Login extends Component {
 
     return (
 
-      <div>
-
-        <header>
-
-          <div className="header-box">
-
-            <div className="logo-container">
-
-              <img className="school" src={school} alt="ícone de uma escola" />
-
-              <div className="titulo-container">
-
-                <p className="titulo1">Gestão</p>
-                <p className="titulo2">Escola</p>
-
-              </div>
-
-              <div className="header-menu">
-
-                <p className="header-item">SOBRE</p>
-                <Link to="/ediS" className="header-item">Salas</Link>
-                <Link to="/ediE" className="header-item">Equipamentos</Link>
-                <button onClick={() => this.popUp()}className="header-item">Cadastro</button>
-                <p className="header-item">EQUIPAMENTOS</p>
+      <nav>
+        <header className="header">
+          <div className="gestao-alinhamento-img">
+            <img className="school" src={school2} alt="ícone de uma escola"/>
+            <p>Gestão<br/>Escola</p>
+          </div>
+          <nav>
+            <ul className="menu">
+              <li><Link to="/ediS" className="link">Salas</Link></li>
+              <li><Link to="/ediE" className="link">Equipamentos</Link></li>
+              <li onClick={() => this.popUp()}>Cadastro</li>
+              <li onClick={() => this.deslogar()}>Sair</li>
+              <li></li>
+            </ul>
+          </nav>
+        </header>
+        <div className="img-alinhamento">
+          <img className="school" src={school2} alt="ícone de uma escola"/>
+        </div>
+        <h1>Login</h1>
+          <form onSubmit={this.fazerLogin} className="login-box">
+          <div className="email-flex">
+            <input className="email-titulo" type="text" placeholder="Email" name="email" value={this.state.email} onChange={this.atualizaState} />        
+            <input className="email-titulo" type="password" placeholder="Senha" name="senha" value={this.state.senha} onChange={this.atualizaState} />
+            <button className="botao-entrar-titulo" type="submit">Entrar</button>
+          </div>
+        </form>
                 <div id="slider">
                   <h1>O que você deseja cadastrar?</h1>
                   <Link to="/cadS">Sala</Link>
                   <Link to="/cadE">Equipamento</Link>                  
                 </div>
-                <p className="header-item">SAIR</p>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </header>
-
-        <main>
-
-          <img className="logo-school" src={school} alt="ícone ilustrativo de uma escola" />
-
-          <p className="logo-text1">GESTÃO</p>
-          <p className="logo-text2">ESCOLA</p>
-
-        <form onSubmit={this.fazerLogin} className="login-box">
-
-          <div className="login-flex">
-            <p className="login-titulo">LOGIN</p>
-          </div>
-
-          <div className="email-flex">
-
-            <input className="email-titulo" type="text" placeholder="Email" name="email" value={this.state.email} onChange={this.atualizaState} />
-        
-            <input className="email-titulo" type="password" placeholder="Senha" name="senha" value={this.state.senha} onChange={this.atualizaState} />
-
-            <button className="botao-entrar-titulo" type="submit">Entrar</button>
-          </div>
-
-        </form>
-
-        </main>
 
 
-      </div>
+
+      </nav>
 
 
     )

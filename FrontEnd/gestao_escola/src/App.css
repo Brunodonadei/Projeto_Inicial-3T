@@ -14,6 +14,7 @@ body, ul, li, p{
   padding: 0px;
   list-style: none;
   font-family: 'Bebas Neue', cursive;
+  color: white;
 }
 
 .header{
@@ -21,7 +22,6 @@ body, ul, li, p{
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
   background-color: #f27b54;
 }
 
@@ -32,15 +32,34 @@ body, ul, li, p{
 .menu li{
   margin-left: 10px;
   display: block;
-  padding: 10px;
+  padding: 60px 10px;
   font-size: 36px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.menu li:hover{
+  background-color: #f2f2f2;
+  color: #f27b54;
+  transition: ease-in-out 300ms;
+}
+
+.link{
+  list-style: none;
+  color: white;
+  padding: 60px 10px;
+}
+
+.link:hover{
+  color: #f27b54;
+  transition: ease 300ms;
 }
 
 h1{
   text-align: center;
   color: #f27b54;
   font-family: 'Bebas Neue', cursive;
-  margin-top: 50px;
+  margin-top: 30px;
   font-size: 80px;
 }
 
@@ -51,10 +70,36 @@ h1{
 }
 
 .school{
-  width: 152px;
-  height: 135px;
+  width: 155px;
+  height: 150px;
   margin-top: 10px;
 }
+
+.img-alinhamento{
+  margin-top: 30px;
+  display: flex;
+}
+
+.gestao-alinhamento-img{
+  display: flex;
+  /* width: 10px; */
+  /* background-color: yellow; */
+}
+
+.gestao-alinhamento-img img{
+  display: flex;
+  width: 150px;
+}
+
+.gestao-alinhamento-img p{
+  display: flex;
+  font-size: 50px;
+  /* background-color: black; */
+  color: black;
+  align-items:flex-end;
+  line-height: 50px;
+}
+
 
 .gestao{
   margin-right: 500px;
