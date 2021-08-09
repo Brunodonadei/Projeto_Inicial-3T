@@ -1,134 +1,214 @@
 import { React, Component } from 'react'
 import axios from 'axios'
-
+import { Link } from 'react-router-dom'
 import '../../assets/css/editar_equip.css'
-
 import school from '../../assets/img/school.png'
 import pc from '../../assets/img/computer.png'
 
 
 class Editar_Equip extends Component {
-    constructor(props){
+
+
+    constructor(props) {
+
         super(props)
+
         this.state = {
-            listaEquipamento : [],
-            marcaEquipamento : '',
-            tipoEquipamento : '',
-            numeroSerie : 0,
-            numeroPatrimonio : 0,
-            descricaoEquipamento : '',
-            statusEquipamento : 0,
-            idEquipamentoEscolhido : 0,
+
+            listaEquipamento: [],
+            marca: '',
+            tipo: '',
+            numeroS: 0,
+            numeroP: 0,
+            descricao: '',
+            situacao: 0,
+            idEquipamentoEscolhido: 0,
+            mensagemSucesso: ''
+
         }
+
     }
+
+
+    buscarEquipamentoPorId = (equipamento) => {
+
+        document.getElementById('pop-up').style.display = 'block'
+        document.getElementById('overlay').style.display = 'block'
+
+        this.setState({
+
+            idEquipamentoEscolhido: equipamento.idEquipamento,
+            marca: equipamento.marcaEquipamento,
+            tipo: equipamento.tipoEquipamento,
+            numeroS: equipamento.numeroSerie,
+            numeroP: equipamento.numeroPatrimonio,
+            descricao: equipamento.descricaoEquipamento,
+            situacao: parseInt(equipamento.statusEquipamento)
+
+        }, () => {
+            console.log('o equipamento ' + this.state.idEquipamentoEscolhido + 'foi selecionado')
+        })
+    }
+
+
+    verModal = (equipamento) => {
+
+        document.getElementById('modal').style.display = 'block'
+
+        this.setState({
+
+            idEquipamentoEscolhido: equipamento.idEquipamento,
+            marca: equipamento.marcaEquipamento,
+            tipo: equipamento.tipoEquipamento,
+            numeroS: equipamento.numeroSerie,
+            numeroP: equipamento.numeroPatrimonio,
+            descricao: equipamento.descricaoEquipamento,
+            situacao: equipamento.statusEquipamento
+
+        }, () => {
+            console.log('o equipamento ' + this.state.idEquipamentoEscolhido + 'foi selecionado')
+        })
+    }
+
 
     deslogar = () => {
         localStorage.removeItem('projeto-inicial')
         this.props.history.push('/')
     }
 
+
     buscarEquipamentos = () => {
+
         axios('http://localhost:5000/api/equipamento', {
-            headers : {
-                'Authorization' : 'Bearer ' + localStorage.getItem('projeto-inicial')
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('projeto-inicial')
             }
         })
 
-        .then(resposta => {
-            if (resposta.status === 200) {
-                this.setState({ listaEquipamento : resposta.data })
-                console.log(this.state.listaEquipamento)
-            }
-        })
+            .then(resposta => {
 
-        .catch(erro => console.log(erro))
+                if (resposta.status === 200) {
+
+                    this.setState({ listaEquipamento: resposta.data })
+                    console.log(this.state.listaEquipamento)
+
+                }
+
+            })
+
+            .catch(erro => console.log(erro))
     }
 
-    abrirPopUp = (equipamento) => {
-        document.getElementById('pop-up').style.display = 'block'
-        // document.getElementById('overlay').style.display = 'block'
 
-        this.setState({
-            idEquipamentoEscolhido : equipamento.idEquipamento,
-            marcaEquipamento : equipamento.marcaEquipamento,
-            tipoEquipamento : equipamento.tipoEquipamento,
-            numeroSerie : equipamento.numeroSerie,
-            numeroPatrimonio : equipamento.numeroPatrimonio,
-            descricaoEquipamento : equipamento.descricaoEquipamento,
-            
-        }, () => {
-            console.log('a sala ' + this.state.idEquipamentoEscolhido + 'foi selecionada' )
-        })
+    fecharPopUp = () => {
+        document.getElementById('pop-up').style.display = 'none'
+        document.getElementById('overlay').style.display = 'none'
+        document.getElementById('modal').style.display = 'none'
     }
+
 
     editarEquipamento = (event) => {
+
         event.preventDefault()
 
         let equipamento = {
 
-            marcaEquipamento : this.state.marcaEquipamento,
-            tipoEquipamento : this.state.tipoEquipamento,
-            numeroSerie : this.state.numeroSerie,
-            numeroPatrimonio : this.state.numeroPatrimonio,
-            descricaoEquipamento : this.state.descricaoEquipamento,
-            statusEquipamento :  parseInt(this.state.statusEquipamento)
+            marcaEquipamento: this.state.marca,
+            tipoEquipamento: this.state.tipo,
+            numeroSerie: this.state.numeroS,
+            numeroPatrimonio: this.state.numeroP,
+            descricaoEquipamento: this.state.descricao,
+            statusEquipamento: parseInt(this.state.situacao)
         }
 
         if (this.state.idEquipamentoEscolhido !== 0) {
-            
+
             axios.put('http://localhost:5000/api/equipamento/' + this.state.idEquipamentoEscolhido, equipamento, {
-                headers : {
-                    'Authorization' : 'Bearer ' + localStorage.getItem('projeto-inicial')
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('projeto-inicial')
                 }
             })
 
-            .then(resposta => {
-                if (resposta.status === 204) {
-                    console.log('sala ' + this.state.idEquipamentoEscolhido + ' atualizada')
-                }
-            })
+                .then(resposta => {
 
-            .catch(erro =>{
-                console.log(erro)
-            })
+                    if (resposta.status === 204) {
 
-            .then(this.buscarEquipamentos)
+                        this.setState({ mensagemSucesso: 'Equipamento alterado com sucesso!' })
+
+                        this.abrirPopUpSucesso()
+
+                    }
+
+                })
+
+                .catch(erro => {
+                    console.log(erro)
+                })
+
+                .then(this.buscarEquipamentos)
         }
     }
+
 
     excluirEquipamento = (equipamento) => {
 
         this.setState({
-            idEquipamentoEscolhido : equipamento.idEquipamento
+            idEquipamentoEscolhido: equipamento.idEquipamento
         })
 
         axios.delete('http://localhost:5000/api/equipamento/' + equipamento.idEquipamento, {
-            headers : {
-                'Authorization' : 'Bearer ' + localStorage.getItem('projeto-inicial')
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('projeto-inicial')
             }
         })
 
-        .then(resposta => {
-            if (resposta.status === 204) {
-                console.log('o equipamento ' + this.state.idEquipamentoEscolhido + ' foi excluído')
-            }
-        })
+            .then(resposta => {
+                if (resposta.status === 204) {
+                    console.log('o equipamento ' + this.state.idEquipamentoEscolhido + ' foi excluído')
+                }
+            })
 
-        .catch(erro => {
-            console.log(erro)
-        })
+            .catch(erro => {
+                console.log(erro)
+            })
 
-        .then(this.buscarEquipamentos)
+            .then(this.buscarEquipamentos)
 
     }
+
+
 
     atualizaState = (campo) => {
-        this.setState({ [campo.target.name] : campo.target.value })
+
+        this.setState({ [campo.target.name]: campo.target.value })
+
     }
 
-    componentDidMount = () =>{
-        this.buscarEquipamentos()
+
+
+    abrirPopUpSucesso = () => {
+
+        document.getElementById('pop-msg-sucesso').style.display = 'block'
+
     }
+
+
+
+    fecharPopUpSucesso = () => {
+
+        document.getElementById('pop-msg-sucesso').style.display = 'none'
+
+    }
+
+
+
+    componentDidMount = () => {
+
+        this.buscarEquipamentos()
+
+    }
+
+
 
     render() {
 
@@ -142,22 +222,23 @@ class Editar_Equip extends Component {
 
                         <div className="logo-container">
 
-                            <img className="school" src={school} alt="ícone de uma escola" />
+                            <Link to="/home">
+                                <img className="school" src={school} alt="ícone de uma escola" />
+                            </Link>
 
                             <div className="titulo-container">
 
-                                <p className="titulo1">GESTÃO</p>
-                                <p className="titulo2">ESCOLA</p>
+                                <p className="titulo1">Gestão</p>
+                                <p className="titulo2">Escola</p>
 
                             </div>
 
                             <div className="header-menu">
 
-                                <p className="header-item">SOBRE</p>
-                                <p className="header-item">SALAS</p>
-                                <p className="header-item">EQUIPAMENTOS</p>
-                                <p className="header-item">CADASTRE-SE</p>
-                                <button className="header-item" onClick={() => this.deslogar()}>Sair</button>
+                                <Link to="/sobre" className="header-item">SOBRE</Link>
+                                <Link to="/ediS" className="header-item">SALAS</Link>
+                                <Link to="/ediE" className="header-item">EQUIPAMENTOS</Link>
+                                <button className="botao-sair" onClick={() => this.deslogar()}>SAIR</button>
 
                             </div>
 
@@ -168,154 +249,174 @@ class Editar_Equip extends Component {
                 </header>
 
 
-                <section>
-                    <div>
-                        <table style={{borderCollapse : 'separate', borderSpacing : 30, align : 'center'}}>
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Marca</th>
-                                    <th>Tipo</th>
-                                    <th>Série</th>
-                                    <th>Patrimonio</th>
-                                    <th>Descrição</th>
-                                    <th>Situação</th>
-                            
-                                </tr>
+                <main>
 
-                            </thead>
-
-                            <tbody>
-
-                                {
-                                    this.state.listaEquipamento.map(evento => {
-                                        return(
-                                            <tr key={evento.idEquipamento}>
-                                                <td>{evento.idEquipamento}</td>
-                                                <td>{evento.marcaEquipamento}</td>
-                                                <td>{evento.tipoEquipamento}</td>
-                                                <td>{evento.numeroSerie}</td>
-                                                <td>{evento.numeroPatrimonio}</td>
-                                                <td>{evento.descricaoEquipamento}</td>
-                                                <td>{evento.statusEquipamento ? 'Ativo' : 'Inativo'}</td>
-                                                <button onClick={() => this.abrirPopUp(evento)}>Editar</button>
-                                                <button onClick={() => this.excluirEquipamento(evento)}>Excluir</button>
-                                            </tr>
-                                        )
-                                    })
-                                }
-                            </tbody>
-                        </table>
+                    <div className="flex-equips">
+                        <p className="title-equips">EQUIPAMENTOS</p>
                     </div>
-                    <div id="pop-up" className="pop-up">
-                        <button className="modal-header">&times;</button>
+
+
+                    <div className="cards-flex-equipamento">
+
+                        {
+                            this.state.listaEquipamento.map(evento => {
+
+                                return (
+
+                                    <div className="editar-equipamento" key={evento.idEquipamento}>
+
+                                        <img className="img-pc" src={pc} alt="ícone de um computador" />
+
+                                        <td className="nome-equipamento-titulo">{evento.tipoEquipamento}</td>
+
+                                        <button className="opcoes-editar-e" onClick={() => this.verModal(evento)}>Ver</button>
+                                        <button className="opcoes-editar-e" onClick={() => this.buscarEquipamentoPorId(evento)}>Editar</button>
+                                        <button className="opcoes-editar-e" onClick={() => this.excluirEquipamento(evento)}>Excluir</button>
+
+                                    </div>
+
+                                )
+                            })
+                        }
+
+                    </div>
+
+
+                    {/* POP UP "VER" */}
+
+                    <div id="modal" className="pop-up">
+
+                        <button className="modal-header" onClick={this.fecharPopUp}>&times;</button>
+
+                        <div className="ver-info">
+                            <p className="editar-equipamento-titulo">Marca do Equipamento: {this.state.marca}</p>
+                            <p className="editar-equipamento-titulo">Tipo de Equipamento: {this.state.tipo}</p>
+                            <p className="editar-equipamento-titulo">Número de Série: {this.state.numeroS}</p>
+                            <p className="editar-equipamento-titulo">Número de Patrimônio: {this.state.numeroP}</p>
+                            <p className="editar-equipamento-titulo">Descrição: {this.state.descricao}</p>
+                            <p className="editar-equipamento-titulo">Situação: {this.state.situacao ? 'Ativo' : 'Inativo'}</p>
+                        </div>
+
+                    </div>
+
+                    {/* FIM POP UP "VER" */}
+
+
+
+                    {/* POP UP "EDITAR" */}
+
+                    <div id="pop-up" className="pop-up-editar">
+
+                        <button className="modal-header" onClick={this.fecharPopUp}>&times;</button>
                         {
                             <form onSubmit={this.editarEquipamento}>
-                                <input 
-                                    className="marca-titulo"
-                                    id="marca-titulo"
-                                    type="text"
-                                    name="marcaEquipamento"
-                                    value={this.state.marcaEquipamento}
-                                    onChange={this.atualizaState}
-                                    placeholder="Marca Equipamento"
-                                />
-                                <input 
-                                    className="tipo-titulo"
-                                    id="tipo-titulo"
-                                    type="text"
-                                    name="tipoEquipamento"
-                                    value={this.state.tipoEquipamento}
-                                    onChange={this.atualizaState}
-                                    placeholder="Tipo Equipamento"
-                                />
-                                <input 
-                                    className="numero-titulo"
-                                    id="numero-titulo"
-                                    type="number"
-                                    name="numeroSerie"
-                                    value={this.state.numeroSerie}
-                                    onChange={this.atualizaState}
-                                    placeholder="Número Série"
-                                />
-                                <input 
-                                    className="numero-titulo"
-                                    id="numero-titulo"
-                                    type="number"
-                                    name="numeroPatrimonio"
-                                    value={this.state.numeroPatrimonio}
-                                    onChange={this.atualizaState}
-                                    placeholder="Número Patrimônio"
-                                />
-                                <input 
-                                    className="descricao-titulo"
-                                    id="descricao-titulo"
-                                    type="text"
-                                    name="descricaoEquipamento"
-                                    value={this.state.descricaoEquipamento}
-                                    onChange={this.atualizaState}
-                                    placeholder="Descrição"
-                                />
-                                <select
-                                    name="statusEquipamento"
-                                    value={this.state.statusEquipamento}
-                                    onChange={this.atualizaState}
-                                >
-                                    <option value="1">Ativo</option>
-                                    <option value="0">Inativo</option>
 
-                                </select>
+                                <div className="editar-flex">
 
-                                <button type="submit">Alterar</button>
+                                    <p className="label-editar">Nova Marca:</p>
+                                    <input
+                                        className="marca-equipamento"
+                                        id="marca-equipamento"
+                                        type="text"
+                                        name="marca"
+                                        value={this.state.marca}
+                                        onChange={this.atualizaState}
+                                        placeholder="Marca do Equipamento"
+                                    />
+
+                                    <p className="label-editar">Novo Tipo:</p>
+                                    <input
+                                        className="tipo-equipamento"
+                                        id="tipo-equipamento"
+                                        type="text"
+                                        name="tipo"
+                                        value={this.state.tipo}
+                                        onChange={this.atualizaState}
+                                        placeholder="Tipo de Equipamento"
+                                    />
+
+                                    <p className="label-editar">Novo Número de Série:</p>
+                                    <input
+                                        className="serie-equipamento"
+                                        id="serie-equipamento"
+                                        type="number"
+                                        min="1"
+                                        name="numeroS"  // name tem que ser igual o value!
+                                        value={this.state.numeroS}
+                                        onChange={this.atualizaState}
+                                        placeholder="Número de Série"
+                                    />
+
+                                    <p className="label-editar">Novo Número de Patrimônio:</p>
+                                    <input
+                                        className="patrimonio-equipamento"
+                                        id="patrimonio-equipamento"
+                                        type="number"
+                                        min="1"
+                                        name="numeroP"
+                                        value={this.state.numeroP}
+                                        onChange={this.atualizaState}
+                                        placeholder="Número de Patrimônio"
+                                    />
+
+                                    <p className="label-editar">Nova Descrição:</p>
+                                    <input
+                                        className="descricao-equipamento"
+                                        id="descricao-equipamento"
+                                        type="text"
+                                        name="descricao"
+                                        value={this.state.descricao}
+                                        onChange={this.atualizaState}
+                                        placeholder="Descrição"
+                                    />
+
+
+                                    <p className="label-editar">Nova Situação do Equipamento:</p>
+                                    <select
+                                        className="situacao-equipamento"
+                                        name="situacao"
+                                        value={this.state.situacao}
+                                        onChange={this.atualizaState}
+                                    >
+                                        <option value="0">Inativo</option>
+                                        <option value="1">Ativo</option>
+                                    </select>
+
+
+
+                                    <button className="botao-alterar"
+                                        type="submit"
+                                        onClick={this.fecharPopUp}>
+                                        Alterar
+                                    </button>
+
+
+                                </div>
 
                             </form>
                         }
                     </div>
-                    
-                </section>
 
-                    {/* <div className="flex-equip">
-                        <p className="title-equip">EQUIPAMENTOS</p>
-                    </div>
+                    {/* FIM POP UP "EDITAR" */}
 
-                    <div className="cards-flex">
 
-                        <div className="editar-equip">
+                    {/* POP UP MENSAGEM DE SUCESSO */}
+                    <div id="pop-msg-sucesso" className="pop-up">
 
-                            <img className="img-equip" src={pc} alt="ícone de um computador" />
-                            <p className="editar-equip-titulo">EQUIPAMENTO X</p>
+                        <button className="modal-header" onClick={this.fecharPopUpSucesso}>&times;</button>
 
-                            <p className="opcoes-editar">VER</p>
-                            <p className="opcoes-editar">EDITAR</p>
-
+                        <div className="msg-sucesso-flex">
+                            <p className="msg-sucesso">{this.state.mensagemSucesso}</p>
                         </div>
-
-                        <div className="editar-equip">
-
-                            <img className="img-equip" src={pc} alt="ícone de um computador" />
-                            <p className="editar-equip-titulo">EQUIPAMENTO X</p>
-
-                            <p className="opcoes-editar">VER</p>
-                            <p className="opcoes-editar">EDITAR</p>
-
-                        </div>
-
-                        <div className="editar-equip">
-
-                            <img className="img-equip" src={pc} alt="ícone de um computador" />
-                            <p className="editar-equip-titulo">EQUIPAMENTO X</p>
-
-                            <p className="opcoes-editar">VER</p>
-                            <p className="opcoes-editar">EDITAR</p>
-
-                        </div>
-
 
                     </div>
+                    {/* FIM POP UP MENSAGEM DE SUCESSO */}
 
-                    <p className="ver-mais">VER MAIS</p> */}
 
-                
+                    <div className="active" id="overlay"></div>
+
+                </main>
+
 
 
                 <footer>
@@ -324,10 +425,10 @@ class Editar_Equip extends Component {
 
                         <div className="footer-content">
 
-                            <p className="footer-itemX">@2021 - Gestão Escola. Todos os direitos reservados.</p>
-                            <p className="footer-item">CONTATO</p>
-                            <p className="footer-item">LOCALIZAÇÃO</p>
-                            <p className="footer-item">PRIVACIDADE</p>
+                            <p className="footer-reservado">@2021 - Gestão Escola. Todos os direitos reservados.</p>
+                            <Link to="/contato" className="footer-item">CONTATO</Link>
+                            <Link to="/localizacao" className="footer-item">LOCALIZAÇÃO</Link>
+                            <Link to="/privacidade" className="footer-item">PRIVACIDADE</Link>
 
                         </div>
 

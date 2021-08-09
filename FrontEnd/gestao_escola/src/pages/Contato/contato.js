@@ -1,12 +1,18 @@
 import { React, Component } from 'react'
-
+import { Link } from 'react-router-dom'
 import '../../assets/css/contato.css'
-
 import school from '../../assets/img/school.png'
 
 
 
 class Contato extends Component {
+
+
+    deslogar = () => {
+        localStorage.removeItem('projeto-inicial')
+        this.props.history.push('/')
+    }
+
 
     render() {
 
@@ -20,22 +26,23 @@ class Contato extends Component {
 
                         <div className="logo-container">
 
-                            <img className="school" src={school} alt="ícone de uma escola" />
+                            <Link to="/home">
+                                <img className="school" src={school} alt="ícone de uma escola" />
+                            </Link>
 
                             <div className="titulo-container">
 
-                                <p className="titulo1">GESTÃO</p>
-                                <p className="titulo2">ESCOLA</p>
+                                <p className="titulo1">Gestão</p>
+                                <p className="titulo2">Escola</p>
 
                             </div>
 
                             <div className="header-menu">
 
-                                <p className="header-item">SOBRE</p>
-                                <p className="header-item">SALAS</p>
-                                <p className="header-item">EQUIPAMENTOS</p>
-                                <p className="header-item">CADASTRE-SE</p>
-                                <p className="header-item">SAIR</p>
+                                <Link to="/sobre" className="header-item">SOBRE</Link>
+                                <Link to="/ediS" className="header-item">SALAS</Link>
+                                <Link to="/ediE" className="header-item">EQUIPAMENTOS</Link>
+                                <button className="botao-sair" onClick={() => this.deslogar()}>SAIR</button>
 
                             </div>
 
@@ -57,7 +64,7 @@ class Contato extends Component {
                         </div>
 
                         <div className="campo-email">
-                            <p className="email-text">EMAIL: gestão_escola@email.com</p>
+                            <p className="email-text">EMAIL: gestao_escola@email.com</p>
                         </div>
 
                     </div>
@@ -72,10 +79,10 @@ class Contato extends Component {
 
                         <div className="footer-content">
 
-                            <p className="footer-itemX">@2021 - Gestão Escola. Todos os direitos reservados.</p>
-                            <p className="footer-item">CONTATO</p>
-                            <p className="footer-item">LOCALIZAÇÃO</p>
-                            <p className="footer-item">PRIVACIDADE</p>
+                            <p className="footer-reservado">@2021 - Gestão Escola. Todos os direitos reservados.</p>
+                            <Link to="/contato" className="footer-item">CONTATO</Link>
+                            <Link to="/localizacao" className="footer-item">LOCALIZAÇÃO</Link>
+                            <Link to="/privacidade" className="footer-item">PRIVACIDADE</Link>
 
                         </div>
 

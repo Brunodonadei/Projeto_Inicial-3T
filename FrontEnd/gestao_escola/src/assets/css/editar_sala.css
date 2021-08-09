@@ -1,134 +1,291 @@
 * {
-    margin: auto;
-  }
-/*   
-  @font-face {
-    font-family: Bebas;
-    src: url(./assets/fonts/BebasNeue.otf);
-  } */
-  
-  .header-box{
-    width: 100%;
-    height: 160px;
-    background-color: #f27b54;
-  }
-  
-  .school{
-    width: 152px;
-    height: 135px;
-    margin-top: 10px;
-  }
-  
-  .logo-container{
-    /* background-color: aquamarine; */
-    width: 80%;
-    display: flex;
-  }
-  
-  .titulo-container{
-    /* background-color: lightpink; */
-    width: 30%;
-    height: 40%;
-    display: flex;
-    flex-direction: column;
-    padding-top: 6px;
-  }
-  
-  .titulo1,.titulo2{
-    font-family: Bebas;
-    font-size: 48px;
-    color: black;
-    padding-right: 100px;
-  }
-  
-  .titulo1{
-    margin-top: 30px;
-  }
-  
-  .titulo2{
-    margin-bottom: 10px;
-  }
-  
-  .header-menu{
-    /* background-color: lightblue; */
-    width: 80%;
-    height: 100%;
-    display: flex;
-    margin-right: 40px;
-  }
-  
-  .header-item{
-    font-family: Bebas;
-    font-size: 36px;
-    color: white;
-  }
-  
-  /* FIM HEADER */
+  margin: auto;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+
+body{
+  background-color: rgba(242, 123, 84, 0.3);
+}
+
+body, ul, li, p{
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+  font-family: 'Bebas Neue', cursive;
+}
+
+.header{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f27b54;
+}
+
+.menu{
+  display: flex;
+}
+
+.menu li{
+  margin-left: 10px;
+  display: block;
+  padding: 10px;
+  font-size: 36px;
+}
+
+h1{
+  text-align: center;
+  color: #f27b54;
+  font-family: 'Bebas Neue', cursive;
+  margin-top: 50px;
+  font-size: 80px;
+}
+
+.header-box{
+  width: 100%;
+  height: 150px;
+  background-color: #f27b54;
+}
+
+.school{
+  width: 135px;
+  height: 135px;
+  margin-top: 10px;
+}
+
+.logo-container{
+  /* background-color: aquamarine; */
+  width: 80%;
+  display: flex;
+}
+
+.titulo-container{
+  /* background-color: lightpink; */
+  width: 30%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  margin-bottom: 18px;
+}
+
+.titulo1,.titulo2{
+  font-family: 'Bebas Neue', cursive;
+  font-size: 48px;
+  color: black;
+  padding-right: 100px;
+}
+
+.titulo2{
+  line-height: 25px;
+}
+
+.header-menu{
+  /* background-color: lightblue; */
+  width: 80%;
+  height: 100%;
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.header-item{
+  font-family: 'Bebas Neue', cursive;
+  font-size: 36px;
+  color: white;
+  text-decoration: none;
+}
+
+.botao-sair{
+  font-family: 'Bebas Neue', cursive;
+  font-size: 36px;
+  color: white;
+  border: none;
+  background-color: #f27b54;
+  cursor: pointer;
+}
+
+/* FIM HEADER */
+
 
   
   
-  /* INÍCIO MAIN-LOGIN */   
+  /* INÍCIO MAIN - EDITAR SALA  */   
   
   .flex-salas{
     display: flex;
   }
   
   .title-salas{
-    font-family: Bebas;
-    font-size: 80px;
+    font-family: 'Bebas neue';
+    font-size: 60px;
     color:#f27b54;
     margin-top: 10px;  
   }
   
-  .cards-box{
-    width: 500px;
-    padding-top: 10px;
-  }
-
-  .cards-flex{
+  .cards-flex-sala{
     display: flex;
     flex-wrap: wrap;
-    margin-top: 5px;
-    margin-bottom: 15px;
-    padding-top: 10px;
   }
   
   .editar-sala{
-    background-color: rgba(196, 196, 196, 0.26);
-    width: 330px;
-    height: 340px;
+    background-color: rgba(4, 57, 94, 0.1);
+    border: solid 2px rgba(242, 123, 84, 1);
+    width: 280px;
+    height: 380px;
     display: flex;
     flex-direction: column;
-    box-shadow:  2px 2px rgba(196, 196, 196, 0.8);
+    align-items: center;
+    box-shadow:  1px 1px rgba(4, 57, 94, 0.3);
+    margin-top: 20px;
   }
   
   .img-sala{
     /* background-color: lightpink; */
     width: 155px;
-    height: 170;
+    height: 170px;
+  }
+
+  .ver-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   
   .editar-sala-titulo{
     /* background-color: lightseagreen; */
-    font-family: Bebas;
-    font-size: 36px;
-    color: black;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 30px;
+    color:white;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .nome-sala-titulo {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 32px;
+    color:black;
   }
   
   .opcoes-editar{
-    font-family: Bebas;
-    font-size: 24px;
-    color: #04395e;
-  }
-  
-  .ver-mais{
-    font-family: Bebas;
-    font-size: 24px;
-    color: #04395e;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 28px;
+    background-color: #f27b54;
+    border: solid 1px #999999;
+    border-radius: 5%;
+    color:rgba(4, 57, 94, 1);
     text-align: center;
-    margin-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
   }
   
+
+  .pop-up{
+    display: none;
+    background-color: #f27b54;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: ease-in-out 300ms;
+    border: 1px solid #04395e ;
+    border-radius: 10xp;
+    z-index: 10;
+    width: 500px;
+    max-width: 60%;
+  }
+
+  
+  .editar-flex{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
+  }
+  
+  
+  .pop-up-editar{
+    display: none;
+    background-color: #f27b54;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: ease-in-out 300ms;
+    border: 1px solid #04395e ;
+    border-radius: 10xp;
+    z-index: 10;
+    width: 500px;
+    max-width: 60%;
+  }
+  
+  .modal-header{
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+    justify-items: end;
+  }
+
+  .msg-sucesso-flex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .msg-sucesso{
+    font-size: 20px;
+    color: black;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  #overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .5);
+    pointer-events: none
+  }
+
+  .label-editar-sala{
+    font-size: 32px;
+    color: white;
+    text-align: center;
+    margin-top: 45px;
+  }
+
+  .nome-titulo,.andar-titulo,.metragem-titulo{
+    text-align: center;
+    border-radius: 5%;
+    height: 25px;
+    background-color: white;
+    color:black;
+  }
+
+  .metragem-titulo{
+    font-size: 20px;
+  }
+
+  .botao-alterar-sala{
+    font-family: 'Bebas Neue', cursive;
+    font-size: 28px;
+    background-color: #04395e;
+    border: solid 2px #999999;
+    border-radius: 5%;
+    color:white;
+    text-align: center;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+
   
   /* FIM MAIN */
   
@@ -146,54 +303,19 @@
     display: flex;
   }
   
-  .footer-item,.footer-itemX{
+  .footer-item{
     font-family: Bebas;
     font-size: 36px;
     color: white;
+    text-decoration: none;
   }
   
-  .footer-itemX{
-    padding-right: 60px;
+  .footer-reservado{
+    font-family: Bebas;
+    font-size: 28px;
+    color: white;
+    text-decoration: none;
+    padding-top: 28px;
   }
 
-  .pop-up{
-    display: none;
-    background-color: white;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: ease-in-out 300ms;
-    border: 1px solid black;
-    border-radius: 10xp;
-    z-index: 10;
-    width: 500px;
-    max-width: 80%;
-  }
   
-  .modal-header{
-    cursor: pointer;
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 1.25rem;
-    font-weight: bold;
-    justify-items: end;
-  }
-
-  #overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, .5);
-    pointer-events: none
-  }
-
-  /* #overlay.active {
-    opacity: 1;
-    pointer-events: all;
-  }
-   */

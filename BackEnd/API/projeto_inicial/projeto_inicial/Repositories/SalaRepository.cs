@@ -1,4 +1,5 @@
-﻿using projeto_inicial.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using projeto_inicial.Context;
 using projeto_inicial.Domains;
 using projeto_inicial.Interfaces;
 using System;
@@ -16,16 +17,14 @@ namespace projeto_inicial.Repositories
         {
             Sala SalaBuscada = ctx.Salas.Find(id);
 
-            if (SalaAtualizada.AndarSala != null)
-            {
-                SalaBuscada.AndarSala = SalaAtualizada.AndarSala;
-            }
+            SalaBuscada.AndarSala = SalaAtualizada.AndarSala;
+
 
             if (SalaAtualizada.NomeSala != null)
             {
                 SalaBuscada.NomeSala = SalaAtualizada.NomeSala;
             }
-            
+
             if (SalaAtualizada.MetragemSala != null)
             {
                 SalaBuscada.MetragemSala = SalaAtualizada.MetragemSala;
@@ -37,7 +36,7 @@ namespace projeto_inicial.Repositories
         public Sala BuscarPorId(int idSala)
         {
             return ctx.Salas.FirstOrDefault(s => s.IdSala == idSala);
-            
+
         }
 
         public void Cadastrar(Sala novaSala)
@@ -55,6 +54,17 @@ namespace projeto_inicial.Repositories
         public List<Sala> listar()
         {
             return ctx.Salas.ToList();
+        }
+
+        public List<SalaEquipamento> listarComEquipamento()
+        {
+            return ctx.SalaEquipamentos
+
+                .Include(c => c.IdEquipamentoNavigation)
+
+                .Include(c => c.IdSalaNavigation)
+
+                .ToList();
         }
     }
 }

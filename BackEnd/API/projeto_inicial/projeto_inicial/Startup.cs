@@ -21,7 +21,8 @@ namespace projeto_inicial
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSwaggerGen(c => {
+            services.AddSwaggerGen(c =>
+            {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "projeto_inicial", Version = "v1" });
 
                 // Set the comments path for the Swagger JSON and UI.
@@ -89,14 +90,14 @@ namespace projeto_inicial
             });
 
             app.UseAuthentication();
-            app.UseAuthorization();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseRouting();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-             
-                    endpoints.MapControllers(); 
+
+                endpoints.MapControllers();
             });
         }
     }

@@ -1,78 +1,118 @@
 * {
-    margin: auto;
-  }
+  margin: auto;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+
+body{
+  background-color: rgba(242, 123, 84, 0.3);
+}
+
+body, ul, li, p{
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+  font-family: 'Bebas Neue', cursive;
+}
+
+.header{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f27b54;
+}
+
+.menu{
+  display: flex;
+}
+
+.menu li{
+  margin-left: 10px;
+  display: block;
+  padding: 10px;
+  font-size: 36px;
+}
+
+h1{
+  text-align: center;
+  color: #f27b54;
+  font-family: 'Bebas Neue', cursive;
+  margin-top: 50px;
+  font-size: 80px;
+}
+
+.header-box{
+  width: 100%;
+  height: 150px;
+  background-color: #f27b54;
+}
+
+.school{
+  width: 135px;
+  height: 135px;
+  margin-top: 10px;
+}
+
+.logo-container{
+  /* background-color: aquamarine; */
+  width: 80%;
+  display: flex;
+}
+
+.titulo-container{
+  /* background-color: lightpink; */
+  width: 30%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  margin-bottom: 18px;
+}
+
+.titulo1,.titulo2{
+  font-family: 'Bebas Neue', cursive;
+  font-size: 48px;
+  color: black;
+  padding-right: 100px;
+}
+
+.titulo2{
+  line-height: 25px;
+}
+
+.header-menu{
+  /* background-color: lightblue; */
+  width: 80%;
+  height: 100%;
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.header-item{
+  font-family: 'Bebas Neue', cursive;
+  font-size: 36px;
+  color: white;
+  text-decoration: none;
+}
+
+.botao-sair{
+  font-family: 'Bebas Neue', cursive;
+  font-size: 36px;
+  color: white;
+  border: none;
+  background-color: #f27b54;
+  cursor: pointer;
+}
+
+/* FIM HEADER */
+
   
-  /* @font-face {
-    font-family: Bebas;
-    src: url(./assets/fonts/BebasNeue.otf);
-  }
-  
-  @font-face {
-    font-family: Abhaya;
-    src: url(./assets/fonts/AbhayaLibre-SemiBold.ttf);
-  } */
-  
-  .header-box{
-    width: 100%;
-    height: 160px;
-    background-color: #f27b54;
-  }
-  
-  .school{
-    width: 152px;
-    height: 135px;
-    margin-top: 10px;
-  }
-  
-  .logo-container{
-    /* background-color: aquamarine; */
-    width: 80%;
-    display: flex;
-  }
-  
-  .titulo-container{
-    /* background-color: lightpink; */
-    width: 30%;
-    height: 40%;
-    display: flex;
-    flex-direction: column;
-    padding-top: 6px;
-  }
-  
-  .titulo1,.titulo2{
-    font-family: Bebas;
-    font-size: 48px;
-    color: black;
-    padding-right: 100px;
-  }
-  
-  .titulo1{
-    margin-top: 30px;
-  }
-  
-  .titulo2{
-    margin-bottom: 10px;
-  }
-  
-  .header-menu{
-    /* background-color: lightblue; */
-    width: 80%;
-    height: 100%;
-    display: flex;
-    margin-right: 40px;
-  }
-  
-  .header-item{
-    font-family: Bebas;
-    font-size: 36px;
-    color: white;
-  }
-  
-  /* FIM HEADER */
   
   
-  
-  /* INÍCIO DA MAIN */
+  /* INÍCIO DA MAIN - PRIVACIDADE */
   
   
   .privacidade-box{
@@ -85,16 +125,17 @@
   }
   
   .privacidade-title{
-    font-family: Abhaya;
-    font-size: 48px;
-    color: black;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 40px;
+    color:#f27b54;
     margin-top: 40px;
     margin-left: 30px;
   }
   
   .privacidade-text{
     font-family: Abhaya;
-    font-size: 36px;
+    font-size: 28px;
+    text-align: justify;
     color: black;
     margin-top: 30px;
     margin-left: 30px;
@@ -118,14 +159,19 @@
     display: flex;
   }
   
-  .footer-item,.footer-itemX{
+  .footer-item{
     font-family: Bebas;
     font-size: 36px;
     color: white;
+    text-decoration: none;
   }
   
-  .footer-itemX{
-    padding-right: 60px;
+  .footer-reservado{
+    font-family: Bebas;
+    font-size: 28px;
+    color: white;
+    text-decoration: none;
+    padding-top: 28px;
   }
   
   

@@ -10,6 +10,8 @@ namespace projeto_inicial.Interfaces
     {
         List<Sala> listar();
 
+        List<SalaEquipamento> listarComEquipamento();
+
         void Cadastrar(Sala novaSala);
 
         void Atualizar(int id, Sala SalaAtualizada);

@@ -1,17 +1,17 @@
 import axios from 'axios'
 import { React, Component } from 'react'
 import { Link } from 'react-router-dom'
-
 import '../../assets/css/cadastro_equip.css'
+import school from '../../assets/img/school.png'
 
-import school2 from '../../assets/img/school.png'
-import Editar_Equip from '../Editar_Equip/editar_equip'
-import Editar_Sala from '../Editar_Sala/editar_sala'
 
 
 class Cadastro_Equip extends Component {
+
     constructor(props) {
+
         super(props)
+
         this.state = {
             listaEquipamento: [],
             marcaEquipamento: '',
@@ -20,15 +20,19 @@ class Cadastro_Equip extends Component {
             numeroPatrimonio: 0,
             descricao: '',
             situacaoEquipamento: 0,
-            mensagem: ''
+            mensagemSucesso: ''
         }
+
     }
+
 
     limpaCampo = () => {
         this.setState({ marcaEquipamento: '', tipoEquipamento: '', numeroSerie: 0, numeroPatrimonio: 0, descricao: '' })
     }
 
+
     cadastrarEquipamento = (event) => {
+
         event.preventDefault()
 
         let equipamento = {
@@ -47,9 +51,20 @@ class Cadastro_Equip extends Component {
         })
 
             .then(resposta => {
+
                 if (resposta.status === 201) {
-                    this.setState({ mensagem: 'equipamento cadastrado com sucesso' })
-                    console.log('equipamento cadastrado')
+
+                    this.setState({
+                        mensagemSucesso: 'Equipamento cadastrado com sucesso!',
+                        marcaEquipamento: '',
+                        tipoEquipamento: '',
+                        numeroSerie: 0,
+                        numeroPatrimonio: 0,
+                        descricao: '',
+                        situacaoEquipamento: 0
+                    })
+
+                    this.abrirPopUp()
                 }
             })
 
@@ -58,9 +73,32 @@ class Cadastro_Equip extends Component {
             })
     }
 
+
     atualizaState = (campo) => {
         this.setState({ [campo.target.name]: campo.target.value })
     }
+
+
+    deslogar = () => {
+        localStorage.removeItem('projeto-inicial')
+        this.props.history.push('/')
+    }
+
+
+    abrirPopUp = () => {
+
+        document.getElementById('pop-msg-sucesso').style.display = 'block'
+
+    }
+
+
+    fecharPopUp = () => {
+
+        document.getElementById('pop-msg-sucesso').style.display = 'none'
+
+    }
+
+
 
     render() {
 
@@ -68,20 +106,36 @@ class Cadastro_Equip extends Component {
 
             <div>
 
-                <header className="header">
-                    <div className="gestao-alinhamento-img">
-                        <img className="school" src={school2} alt="ícone de uma escola" />
-                        <p>Gestão<br />Escola</p>
+                <header>
+
+                    <div className="header-box">
+
+                        <div className="logo-container">
+
+                            <Link to="/home">
+                                <img className="school" src={school} alt="ícone de uma escola" />
+                            </Link>
+
+                            <div className="titulo-container">
+
+                                <p className="titulo1">Gestão</p>
+                                <p className="titulo2">Escola</p>
+
+                            </div>
+
+                            <div className="header-menu">
+
+                                <Link to="/sobre" className="header-item">SOBRE</Link>
+                                <Link to="/ediS" className="header-item">SALAS</Link>
+                                <Link to="/ediE" className="header-item">EQUIPAMENTOS</Link>
+                                <button className="botao-sair" onClick={() => this.deslogar()}>SAIR</button>
+
+                            </div>
+
+                        </div>
+
                     </div>
-                    <nav>
-                        <ul className="menu">
-                            <li><Link to="/ediS" className="link">Salas</Link></li>
-                            <li><Link to="/ediE" className="link">Equipamentos</Link></li>
-                            <li onClick={() => this.popUp()}>Cadastro</li>
-                            <li onClick={() => this.deslogar()}>Sair</li>
-                            <li></li>
-                        </ul>
-                    </nav>
+
                 </header>
 
 
@@ -93,6 +147,7 @@ class Cadastro_Equip extends Component {
 
                     <form onSubmit={this.cadastrarEquipamento}>
 
+                        <p className="labels">Marca do Equipamento:</p>
                         <div className="marca-flex">
                             <input
                                 className="marca-titulo"
@@ -103,8 +158,8 @@ class Cadastro_Equip extends Component {
                                 placeholder="Marca do equipamento"
                             />
                         </div>
-                        <div className="line"></div>
 
+                        <p className="labels">Tipo de Equipamento:</p>
                         <div className="tipo-flex">
                             <input
                                 className="tipo-titulo"
@@ -115,32 +170,34 @@ class Cadastro_Equip extends Component {
                                 placeholder="Tipo de equipamento"
                             />
                         </div>
-                        <div className="line"></div>
 
+                        <p className="labels">Número de Série do Equipamento:</p>
                         <div className="serie-flex">
                             <input
                                 className="serie-titulo"
                                 type="number"
                                 name="numeroSerie"
+                                min="1"
                                 value={this.state.numeroSerie}
                                 onChange={this.atualizaState}
                                 placeholder="Número de série"
                             />
                         </div>
-                        <div className="line"></div>
 
+                        <p className="labels">Número de Patrimônio do Equipamento:</p>
                         <div className="patrimonio-flex">
                             <input
                                 className="patrimonio-titulo"
                                 type="number"
                                 name="numeroPatrimonio"
+                                min="1"
                                 value={this.state.numeroPatrimonio}
                                 onChange={this.atualizaState}
                                 placeholder="Número de patrimônio"
                             />
                         </div>
-                        <div className="line"></div>
 
+                        <p className="labels">Descrição do Equipamento:</p>
                         <div className="descricao-flex">
                             <input
                                 className="descricao-titulo"
@@ -148,48 +205,50 @@ class Cadastro_Equip extends Component {
                                 name="descricao"
                                 value={this.state.descricao}
                                 onChange={this.atualizaState}
-                                placeholder="Descrição do equipamento"
+                                placeholder="Descrição"
                             />
                         </div>
+
+
+                        <p className="labels">Situação do Equipamento:</p>
                         <select
+                            className="select-status"
                             name="situacaoEquipamento"
                             value={this.state.situacaoEquipamento}
                             onChange={this.atualizaState}
                         >
-                            <option value="1">Ativo</option>
                             <option value="0">Inativo</option>
+                            <option value="1">Ativo</option>
 
                         </select>
-                        <div className="line"></div>
 
-                        <div className="descricao-flex">
 
-                            {/* <select 
-                    className="descricao-titulo"
-                    name="situacaoEquipamento"
-                    value={this.state.situacaoEquipamento}
-                    onChange={this.atualizaState}
-                    placeholder="Descrição do equipamento"
-                    >
-                        <option value={true}>Ativo</option>
-                        <option value={false}>Inativo</option>
+                        <div className="descricao-flex"></div>
 
-                        {
-                            this.state.listaEquipamento.map(situacao => {
-                                return(
-                                    <option key={situacao.statusEquipamento} value={situacao.statusEquipamento}>{situacao.situacaoEquipamento}</option>
-                                )
-                            })
-                        }
-                    </select> */}
+                        <div className="botao-flex">
+
+                            <button className="botao-cadastrar-equipamento"
+                                type="submit"
+                            >
+                                Cadastrar Equipamento
+                            </button>
 
                         </div>
-                        <div className="line"></div>
 
 
-                        <div className="botao-cadastrar-box">
-                            <button className="botao-cadastrar-titulo" type="submit">Cadastrar Equipamento</button>
+                        {/* POP UP MENSAGEM DE SUCESSO */}
+                        <div id="pop-msg-sucesso" className="pop-up">
+
+                            <button className="modal-header" onClick={this.fecharPopUp}>&times;</button>
+
+                            <div className="msg-sucesso-flex">
+                                <p className="msg-sucesso">{this.state.mensagemSucesso}</p>
+                            </div>
+
                         </div>
+                        {/* FIM POP UP MENSAGEM DE SUCESSO */}
+
+
                     </form>
 
 
@@ -202,10 +261,10 @@ class Cadastro_Equip extends Component {
 
                         <div className="footer-content">
 
-                            <p className="footer-itemX">@2021 - Gestão Escola. Todos os direitos reservados.</p>
-                            <p className="footer-item">CONTATO</p>
-                            <p className="footer-item">LOCALIZAÇÃO</p>
-                            <p className="footer-item">PRIVACIDADE</p>
+                            <p className="footer-reservado">@2021 - Gestão Escola. Todos os direitos reservados.</p>
+                            <Link to="/contato" className="footer-item">CONTATO</Link>
+                            <Link to="/localizacao" className="footer-item">LOCALIZAÇÃO</Link>
+                            <Link to="/privacidade" className="footer-item">PRIVACIDADE</Link>
 
                         </div>
 

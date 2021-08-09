@@ -26,25 +26,19 @@ namespace projeto_inicial.Repositories
                 EquipamentoBuscado.TipoEquipamento = EquipamentoAtualizado.TipoEquipamento;
             }
 
-            if (EquipamentoAtualizado.NumeroSerie != null)
-            {
-                EquipamentoBuscado.NumeroSerie = EquipamentoAtualizado.NumeroSerie;
-            }
+
+            EquipamentoBuscado.NumeroSerie = EquipamentoAtualizado.NumeroSerie;
+
 
             if (EquipamentoAtualizado.DescricaoEquipamento != null)
             {
                 EquipamentoBuscado.DescricaoEquipamento = EquipamentoAtualizado.DescricaoEquipamento;
             }
 
-            if (EquipamentoAtualizado.NumeroPatrimonio != null)
-            {
-                EquipamentoBuscado.NumeroPatrimonio = EquipamentoAtualizado.NumeroPatrimonio;
-            }
 
-            if (EquipamentoAtualizado.StatusEquipamento != null)
-            {
-                EquipamentoBuscado.StatusEquipamento = EquipamentoAtualizado.StatusEquipamento;
-            }
+            EquipamentoBuscado.NumeroPatrimonio = EquipamentoAtualizado.NumeroPatrimonio;
+
+            EquipamentoBuscado.StatusEquipamento = EquipamentoAtualizado.StatusEquipamento;
 
             ctx.Equipamentos.Update(EquipamentoBuscado);
             ctx.SaveChanges();

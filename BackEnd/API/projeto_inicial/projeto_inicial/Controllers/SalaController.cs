@@ -36,6 +36,19 @@ namespace projeto_inicial.Controllers
             }
         }
 
+        [HttpGet("minhas")]
+        public IActionResult listarCom()
+        {
+            try
+            {
+                return Ok(_sala.listarComEquipamento());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
         [HttpPost]
         public IActionResult cadastrarSala(Sala novaSala)
         {
