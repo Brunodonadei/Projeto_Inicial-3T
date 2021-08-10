@@ -125,7 +125,7 @@ class Cadastro_Sala extends Component {
                         <p className="sala-titulo">CADASTRO DE SALA</p>
                     </div>
 
-                    <form onSubmit={this.cadastrarSala}>
+                    <form className="trem" onSubmit={this.cadastrarSala}>
 
                         <p className="labels">Nome da Sala:</p>
                         <div className="nome-flex">

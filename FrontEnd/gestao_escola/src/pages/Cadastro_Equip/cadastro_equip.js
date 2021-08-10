@@ -209,7 +209,6 @@ class Cadastro_Equip extends Component {
                             />
                         </div>
 
-
                         <p className="labels">Situação do Equipamento:</p>
                         <select
                             className="select-status"

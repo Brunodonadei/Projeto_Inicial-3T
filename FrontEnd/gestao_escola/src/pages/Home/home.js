@@ -82,20 +82,14 @@ class Home extends Component {
 
 
                 <footer>
-
                     <div className="footer-box">
-
                         <div className="footer-content">
-
                             <p className="footer-reservado">@2021 - Gestão Escola. Todos os direitos reservados.</p>
                             <Link to="/contato" className="footer-item">CONTATO</Link>
                             <Link to="/localizacao" className="footer-item">LOCALIZAÇÃO</Link>
                             <Link to="/privacidade" className="footer-item">PRIVACIDADE</Link>
-
                         </div>
-
                     </div>
-
                 </footer>
 
             </div>

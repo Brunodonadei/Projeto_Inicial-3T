@@ -6,7 +6,7 @@
 
 
 body{
-  background-color: rgba(242, 123, 84, 0.3);
+  background-color: #f2f2f2;
 }
 
 body, ul, li, p{
@@ -153,8 +153,12 @@ h1{
   
   .footer-box{
     background-color: #f27b54;
+    /* position: absolute;
+    bottom: 0;
+    left: 0; */
     width: 100%;
-    height: 130px;
+    height: 100px;
+    margin-top: 2px;
   }
   
   .footer-content{

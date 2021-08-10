@@ -3,9 +3,6 @@ import ReactDOM from 'react-dom';
 import { Route, BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
 import { parseJwt, usuarioAutenticado } from './services/auth';
 
-import reportWebVitals from './reportWebVitals';
-import './index.css';
-
 import Home from './pages/Home/home';
 import Cadastro_Equip from './pages/Cadastro_Equip/cadastro_equip'
 import Cadastro_Sala from './pages/Cadastro_Sala/cadastro_sala'
@@ -52,5 +49,3 @@ const routing = (
 )
 
 ReactDOM.render(routing, document.getElementById('root'));
-
-reportWebVitals();
